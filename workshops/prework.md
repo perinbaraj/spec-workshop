@@ -9,13 +9,14 @@ are not part of the hands-on event.
 - GitHub Copilot access in VS Code, signed in and able to use Chat agent tools.
 - PowerShell on Windows, or Bash on macOS/Linux.
 - Python 3.11+, uv, and Specify CLI 1.2.3 (installation below).
-- A local checkout of the `spec-workshop` branch.
+- A local clone of [`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)
+  (its default `main` branch).
 - Internet access for Copilot and for package installation (`npm ci`, Python tooling).
 
 There is no Redis server, Docker, database, GitHub Actions setup, cloud account,
 or healthcare-service credential to configure.
 
-## 1. Clone the workshop branch and open VS Code
+## 1. Clone the workshop repository and open VS Code
 
 Install missing prerequisites from their official sources:
 [Git](https://git-scm.com/downloads),
@@ -27,26 +28,34 @@ for the Python tool manager. Verify
 [Copilot access in VS Code](https://code.visualstudio.com/docs/copilot/setup)
 before continuing.
 
-In a terminal, choose a parent folder for your own checkout, then run:
+In a terminal, choose a parent folder for your own clone, then run:
 
 ```text
-git clone --branch spec-workshop --single-branch https://github.com/perinbaraj/member-portal-lab.git
-cd member-portal-lab
+git clone https://github.com/perinbaraj/spec-workshop.git
+cd spec-workshop
+git config --get remote.origin.url
 git branch --show-current
 git status --short
 code .
 ```
 
-Expected: branch `spec-workshop`, no local changes in a fresh clone, and VS Code
-opens the folder containing `package.json`, `server`, `src`, and `workshops`.
-If `code` is not on PATH, use VS Code's **File > Open Folder** to open that folder.
-Use **Terminal > New Terminal** for the remaining terminal commands.
+Expected: the clone creates a `spec-workshop` folder;
+`git config --get remote.origin.url` prints
+`https://github.com/perinbaraj/spec-workshop.git`; `git branch --show-current`
+prints `main` (the workshop starter is this repository's default branch, so no
+other branch is needed); `git status --short` prints nothing in a fresh clone; and
+VS Code opens the folder containing `package.json`, `server`, `src`, and
+`workshops`. If `code` is not on PATH, use VS Code's **File > Open Folder** to open
+that folder. Use **Terminal > New Terminal** for the remaining terminal commands.
 
-If you already have a checkout with local work, do not reset or clean it to follow
-these steps. Use a separate clone or ask the facilitator to help preserve it.
-If cloning reports no such branch or an access error, check the URL, GitHub
-access, and that the facilitator has published `spec-workshop`; do not silently
-substitute `main`. Workshop preparation stays on `spec-workshop`; you will create
+If a `spec-workshop` folder with your own local work already exists, do not reset
+or clean it. Clone into a new folder name instead
+(`git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-event`,
+then `cd spec-workshop-event`), or ask the facilitator to help preserve it. A copy
+cloned from any other URL is not a substitute for this repository.
+If cloning reports "repository not found" or an access error, check the URL
+character for character and your network or GitHub access, then tell the
+facilitator. Do not switch branches during prework: stay on `main`. You will create
 your own local learner branch in [step 2](steps/02-initialize-and-constitution.md).
 
 ## 2. Verify the starter
@@ -90,7 +99,7 @@ Stop the development processes before running `npm test`: the starter imports
 and starts its API listener during tests, so another process on port 3000 can
 cause a conflict. Use separate terminal windows for editing and development.
 
-## 3. Install the tool, not the project scaffolding
+## 3. Install and verify the Spec Kit tool
 
 Install Python 3.11+ and uv using the
 [official installation guide](https://github.github.io/spec-kit/installation.html).
@@ -140,11 +149,11 @@ workshop. If neither flavour works, pair with a neighbour and tell the facilitat
 Any other value, such as `RemoteSigned`, works with `--script ps`. macOS/Linux
 participants use `--script sh`.
 
-**Do not run `specify init` in this checkout yet.** Participants initialize the
-existing repository and generate its constitution during the core workshop.
-This starter deliberately contains no generated `.specify` files or Spec Kit
-skills, agents, or prompts. Missing `/speckit-...` skills before initialization
-is expected.
+**Stop after verifying the CLI; do not run `specify init` in this checkout
+yet.** The command is a hands-on workshop action, performed in the existing
+repository after [step 1: orient](steps/01-orient.md). This starter deliberately
+contains no generated `.specify` files or Spec Kit skills, agents, or prompts.
+Missing `/speckit-...` skills before initialization is expected.
 
 Initialization uses assets bundled with the installed CLI, so it should not need
 network access; Copilot still does. Resolve proxy, certificate, package-index, or
@@ -163,13 +172,23 @@ See the [reviewer profile](../.github/agents/workshop-reviewer.agent.md) and
 if discovery is blocked. The profile allows read/search tools only. Keep that
 boundary; command execution belongs to the normal implementation session.
 
-## Ready means
+## Ready for the live workshop
 
-The app runs locally, baseline checks work, `specify version` prints `1.2.3` (or the
-version your facilitator named), you know which script flavour you will use
-(`ps`, `py`, or `sh`), and the reviewer can be selected. The repository is still
-uninitialized for Spec Kit. Tell the facilitator about a setup blocker before the
-event.
+Your clone of `perinbaraj/spec-workshop` is on `main`, the app runs locally,
+baseline checks work, `specify version` prints `1.2.3` (or the version your
+facilitator named), you know which script flavour you will use (`ps`, `py`, or
+`sh`), and the reviewer can be selected. The repository is still uninitialized
+for Spec Kit. Tell the facilitator about a setup blocker before the event.
+
+When the core workshop begins, follow these steps in order:
+
+1. Open the [workshop home](README.md) and keep this page available for setup
+   recovery.
+2. Complete [1. Orient in the application](steps/01-orient.md) without
+   initializing Spec Kit or changing feature code.
+3. Open [2. Initialize Spec Kit and the constitution](steps/02-initialize-and-constitution.md),
+   choose the single command for your platform and pre-work-approved script
+   flavour, and run it yourself in your repository-root terminal.
 
 If blocked during the workshop, use [reference recovery](reference/README.md)
 without discarding your work.

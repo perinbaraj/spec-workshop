@@ -4,16 +4,20 @@
 Portal to practice a complete, bounded AI-assisted development lifecycle in
 VS Code with GitHub Copilot Chat.
 
-This branch intentionally contains neither generated Spec Kit scaffolding nor
-the claims-filter implementation. Learners initialize Spec Kit in the existing
-repository, create the constitution, review and adapt a reference specification
-and plan, generate tasks, implement the change, and decide whether to accept it.
+This repository's `main` branch intentionally contains neither generated Spec Kit
+scaffolding nor the claims-filter implementation. Learners initialize Spec Kit in
+the existing repository, create the constitution, review and adapt a reference
+specification and plan, generate tasks, implement the change, and decide whether
+to accept it.
 
 ## Start here
 
-Complete [setup and environment verification](prework.md) before the event.
-Then follow the six linked guides in order. Each contains numbered actions,
-copy-ready terminal commands and Chat prompts, expected outputs, and recovery.
+Complete [setup and environment verification](prework.md) before the event; it
+begins by cloning [`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop).
+Then follow the six linked guides in order: orient in the uninitialized starter
+first, then run `specify init` yourself during step 2. Each guide contains
+numbered actions, copy-ready terminal commands and Chat prompts, expected
+outputs, and recovery.
 
 | Step | Detailed participant guide | Exit checkpoint |
 | --- | --- | --- |

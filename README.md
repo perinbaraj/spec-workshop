@@ -4,15 +4,18 @@ A lean healthcare member portal (Express API + React frontend) used as the base 
 
 ## Spec-driven workshop
 
-The `spec-workshop` branch is an **unfinished learner starter**, not a completed
-solution. **[Start here: setup and the linked workshop steps](workshops/README.md#start-here).**
+The `main` branch of this repository
+([`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)) is an
+**unfinished learner starter**, not a completed solution.
+**[Start here: setup and the linked workshop steps](workshops/README.md#start-here).**
 
-- **Core:** start with the brownfield app, initialize Spec Kit, create project
-  guardrails, then carry one claims status-filter/pagination change through
-  specification, implementation, testing, a custom reviewer, and human acceptance.
-  The event has a tentative three-hour core plus a one-hour completion buffer.
-  Tool installation is prework; initialization is hands-on. Review and adapt
-  supplied spec/plan examples rather than starting from a blank page.
+- **Core:** complete pre-work tool installation and verification, then inspect
+  the uninitialized brownfield app before personally initializing Spec Kit in
+  step 2. Create project guardrails, then carry one claims
+  status-filter/pagination change through specification, implementation, testing,
+  a custom reviewer, and human acceptance. The event has a tentative three-hour
+  core plus a one-hour completion buffer. Review and adapt supplied spec/plan
+  examples rather than starting from a blank page.
 - **Optional:** [multiple custom agents](workshops/optional/custom-agents.md) and
   [appeal eligibility and drafting](workshops/optional/claim-appeals.md).
   Neither is required to complete the core workshop.
@@ -22,13 +25,13 @@ solution. **[Start here: setup and the linked workshop steps](workshops/README.m
 The [six-step roadmap](workshops/core.md) links to detailed commands, Chat
 prompts, expected outputs, and recovery instructions for each checkpoint.
 The [acceptance contract](workshops/acceptance.md) defines the feature learners
-will implement. This branch contains one workshop journey, not a two-day lab pack.
+will implement. This repository contains one workshop journey, not a two-day lab pack.
 
 ## Quick Start
 
-For workshop readiness, follow [prework](workshops/prework.md), including the
-branch checkout, tool installation, and baseline checks. To run an already
-prepared checkout:
+For workshop readiness, follow [prework](workshops/prework.md), including cloning
+`https://github.com/perinbaraj/spec-workshop.git`, tool installation, and baseline
+checks. To run an already cloned and prepared checkout:
 
 ```bash
 npm ci
@@ -71,7 +74,7 @@ curl -H "x-member-id: M-10001" http://localhost:3000/api/prescriptions
 ## Project Structure
 
 ```
-starter-code/
+spec-workshop/
 +-- server/          # Express backend
 |   +-- server.ts    # Routes + middleware (single file)
 |   +-- data.ts      # In-memory mock data

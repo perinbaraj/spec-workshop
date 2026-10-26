@@ -2,9 +2,10 @@
 
 ## Keep the scope honest
 
-The branch is a learner starter with a core exercise and two independent optional
-workshops. It is not a completed feature, a production healthcare system, or a
-guarantee that every participant finishes within a fixed duration.
+The repository's `main` branch is a learner starter with a core exercise and two
+independent optional workshops. It is not a completed feature, a production
+healthcare system, or a guarantee that every participant finishes within a fixed
+duration.
 
 Keep the core to the six checkpoints in [core.md](core.md). Explain lifecycle
 concepts using the change participants are already making. Do not open separate
@@ -12,7 +13,13 @@ labs for tools, agent teams, appeals, deployment, or infrastructure during the c
 
 ## Before inviting participants
 
-- Complete [prework](prework.md) in a fresh checkout.
+- Complete [prework](prework.md) in a fresh clone, running its clone command
+  exactly as written (`https://github.com/perinbaraj/spec-workshop.git`), to
+  confirm the URL is reachable without special access, the default branch is
+  `main`, and the checkout is the unfinished starter.
+- Make sure invitations, calendar text, and slides link only to
+  `https://github.com/perinbaraj/spec-workshop` and do not repeat an older clone
+  command or branch name.
 - Verify Copilot account access, the selected VS Code harness, and normal tool
   approval behavior.
 - Pin and announce the Specify CLI version (1.2.3, as in prework) and confirm that
@@ -58,9 +65,13 @@ template. [Reference artifacts](reference/README.md) are the default starting
 material for guided specification and planning, and also support recovery.
 Participants still review and adapt them; adopting an example is not approval.
 
-Use `spec-workshop` as the shared baseline. Learners may create their own local
-feature branches. Keep all facilitator workshop-preparation changes associated
-with `spec-workshop`; do not modify `main` or another preparation branch.
+Use `main` in [perinbaraj/spec-workshop](https://github.com/perinbaraj/spec-workshop)
+as the shared baseline. Learners clone it and may create their own local feature
+branches. Publish facilitator workshop-preparation changes to this repository's
+`main` before participants start prework, and avoid changing it afterward. If a
+later change must reach participants who already cloned, ask them to run
+`git switch main` and `git pull --ff-only` before step 2. Do not point
+participants at another repository or branch.
 
 ## Run of show
 

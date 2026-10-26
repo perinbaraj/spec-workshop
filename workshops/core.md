@@ -1,9 +1,11 @@
 # Core: claims filtering, from requirement to acceptance
 
 Start with [prework](prework.md), then follow the six linked checkpoints in order
-in your own checkout or learner branch based on `spec-workshop`. The application
-is an unfinished brownfield starter: you implement one bounded claims-filter and
-pagination change, not a replacement portal.
+in your own clone of `perinbaraj/spec-workshop` (or a learner branch created from
+its `main`). Pre-work installs and verifies the CLI; after checkpoint 1, you run
+`specify init` yourself in checkpoint 2. The application is an unfinished
+brownfield starter: you implement one bounded claims-filter and pagination change,
+not a replacement portal.
 
 The event boundary is a **tentative three-hour core plus a one-hour buffer**.
 Installation is prework. Use the buffer for recovery, review, and completion,

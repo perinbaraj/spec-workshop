@@ -9,7 +9,9 @@ Add Spec Kit tooling to the existing application, then establish guardrails for
 this bounded change. Do not generate a new application or reverse-specify the
 whole portal. Finish [orientation](01-orient.md) and
 [tool installation prework](../prework.md) first. Know your approved Specify CLI
-version and script flavor: `ps`, `py`, or `sh`.
+version and script flavor: `ps`, `py`, or `sh`. This is the first step where you
+run `specify init`: select one command below and enter it yourself in your
+repository-root terminal.
 
 ## Actions
 
@@ -23,19 +25,22 @@ version and script flavor: `ps`, `py`, or `sh`.
    ```
 
    Preserve and identify existing work before initializing. If you are still on
-   `spec-workshop` in your own checkout, create the local learner branch once:
+   `main` in your own clone, create the local learner branch once:
 
    ```text
    git switch -c workshop-claims
    ```
 
-   If prework already created your learner branch, stay on it; do not create
+   If you are already on a learner branch, stay on it; do not create
    another or switch the shared preparation checkout. The help must include
    `--here`, `--integration`, and `--script`. Keep the version approved in
    prework; do not upgrade mid-workshop.
 
-2. **Terminal — initialize interactively, choosing exactly one command.** Use
-   your own terminal at the repository root, **not Copilot's terminal tool**.
+2. **Terminal — initialize interactively, choosing exactly one command.** This
+   is the live initialization action, not a pre-work command. Use your own
+   terminal at the repository root, **not Copilot's terminal tool**. Choose the
+   command that matches the script flavor you verified in pre-work; do not run
+   more than one variant.
 
    **Windows PowerShell, when prework permits PowerShell helper scripts:**
 

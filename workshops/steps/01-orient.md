@@ -8,8 +8,8 @@
 Understand the running claims flow before asking an agent to change it. Complete
 [prework](../prework.md): the repository is open at its root in VS Code,
 dependencies and approved tools are installed, and baseline checks have run.
-Use your own checkout based on `spec-workshop`; do not modify a shared preparation
-checkout. No Spec Kit initialization is needed yet.
+Use your own clone of [`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop);
+do not modify a shared preparation checkout. No Spec Kit initialization is needed yet.
 
 The [acceptance contract](../acceptance.md) defines the one change. Keep it open
 beside these instructions. Refills, appeals, storage, external services,
@@ -22,12 +22,14 @@ deployment, and broad refactoring are outside this core.
 
    ```text
    git rev-parse --show-toplevel
+   git config --get remote.origin.url
    git branch --show-current
    git status --short
    ```
 
-   Confirm this is your workshop checkout based on `spec-workshop` (or the learner
-   branch prepared from it). Record any existing edits before continuing. A clean
+   Confirm `remote.origin.url` is `https://github.com/perinbaraj/spec-workshop.git`
+   and you are on `main` (or a learner branch created from it). Record any existing
+   edits before continuing. A clean
    status produces no lines; existing edits are not permission to discard work.
 
 2. **Terminal, then browser — inspect the starter.** In a development terminal:
@@ -96,8 +98,11 @@ actual source and contract. **No feature code has changed.** Run
 `git status --short` again if there is any doubt.
 
 **Proceed** when you can describe the current route/client/view flow and the
-scope boundary. **Stop** if the app or baseline checks do not work, the checkout
-is wrong, or the agent has already started unrelated implementation.
+scope boundary. Then stop the development processes you started, preserve the
+starting Git status, and open [step 2](02-initialize-and-constitution.md). Step
+2 is where you will select and run one `specify init` command in your own
+repository-root terminal. **Stop** if the app or baseline checks do not work,
+the checkout is wrong, or the agent has already started unrelated implementation.
 
 ## Common blockers and nondestructive recovery
 

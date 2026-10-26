@@ -3,7 +3,8 @@
 The default core journey is **review and adapt**, not blank-page generation.
 These examples provide the content for the active specification and plan that
 Spec Kit creates. They are not active feature artifacts, an approved solution,
-or a completed application; `spec-workshop` remains the unfinished starter.
+or a completed application; the repository's `main` branch remains the
+unfinished starter.
 
 [Workshop home](../README.md) ·
 [Specify checkpoint](../steps/03-specify.md) ·
@@ -132,9 +133,13 @@ generation is not a second required pass after guided adaptation.
    review the proposed changes yourself before proceeding. Use the relevant
    skill above to restore missing scaffold or supporting artifacts; copying a
    reference `spec.md`, `plan.md`, or `tasks.md` alone does not create them.
-4. If your checkout is unusable, make a separate clone of the repository, check
-   out `spec-workshop`, complete prework, and repeat the initialization and
-   constitution checkpoint there. Do not reset or clean your original checkout.
+4. If your checkout is unusable, make a separate clone into a new folder. From the
+   parent folder, not inside the original checkout, run
+   `git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-recovery`
+   and `cd spec-workshop-recovery`. Stay on `main`, repeat the
+   [starter verification](../prework.md#2-verify-the-starter) there, and repeat
+   the initialization and constitution checkpoint. Do not reset or clean your
+   original checkout.
 5. Do not copy an authentication token, environment file, or member data into a
    recovery checkout.
 
