@@ -5,8 +5,8 @@ Use `/speckit-plan` after the active specification and requirements checklist ex
 and a human has reviewed them. Keep generated active metadata and paths.
 
 [Workshop home](../README.md) · [Guided workflow](README.md) ·
-[Specify checkpoint](../steps/03-specify.md) ·
-[Plan and tasks checkpoint](../steps/04-plan-and-tasks.md) ·
+[Exercise 3: specification](../steps/exercise-3-create-the-specification.md) ·
+[Exercise 4: plan and tasks](../steps/exercise-4-create-the-plan-and-tasks.md) ·
 [Binding behavior contract](../acceptance.md)
 
 ## Summary and technical context
@@ -134,7 +134,7 @@ backend, and Vite transpilation is not a full frontend TypeScript check.
 ## Human handoff, separate from executable tasks
 
 After implementation and real checks, follow
-[review and acceptance](../steps/06-review-and-accept.md) and the single
+[Exercise 6: review and acceptance](../steps/exercise-6-review-and-accept.md) and the single
 [acceptance checklist](../acceptance.md). A participant customizes the
 read/search-only reviewer, evaluates findings, operates the browser and keyboard,
 and records actual outcomes, limitations, and the acceptance decision. The

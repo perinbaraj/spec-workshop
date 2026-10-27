@@ -7,7 +7,7 @@ independent optional workshops. It is not a completed feature, a production
 healthcare system, or a guarantee that every participant finishes within a fixed
 duration.
 
-Keep the core to the six checkpoints in [core.md](core.md). Explain lifecycle
+Keep the core to the six exercises in [core.md](core.md). Explain lifecycle
 concepts using the change participants are already making. Do not open separate
 labs for tools, agent teams, appeals, deployment, or infrastructure during the core.
 
@@ -41,7 +41,8 @@ labs for tools, agent teams, appeals, deployment, or infrastructure during the c
   The macOS/Linux `--script sh` flavour has not been rehearsed.
 - Run the exact initialize/constitution/specify/plan/tasks/implement/converge flow.
   For specify and plan, use the reference-grounded prompts in
-  [step 3](steps/03-specify.md) and [step 4](steps/04-plan-and-tasks.md), not
+  [Exercise 3](steps/exercise-3-create-the-specification.md) and
+  [Exercise 4](steps/exercise-4-create-the-plan-and-tasks.md), not
   independent blank-page generation. Confirm active scaffolding, ancillary
   planning artifacts, and an executable task checklist are created.
   The default Copilot layout uses `/speckit-...` skills, not older dotted prompts.
@@ -66,12 +67,15 @@ material for guided specification and planning, and also support recovery.
 Participants still review and adapt them; adopting an example is not approval.
 
 Use `main` in [perinbaraj/spec-workshop](https://github.com/perinbaraj/spec-workshop)
-as the shared baseline. Learners clone it and may create their own local feature
-branches. Publish facilitator workshop-preparation changes to this repository's
+as the shared baseline. Learners stay on `main` in their own clones for all six
+exercises. Do not teach branch creation or require Git terminal diagnostics,
+checkpoint commits, or pushes. They inspect changes using VS Code Source Control
+and open new files in Explorer. Publish preparation changes to this repository's
 `main` before participants start prework, and avoid changing it afterward. If a
-later change must reach participants who already cloned, ask them to run
-`git switch main` and `git pull --ff-only` before step 2. Do not point
-participants at another repository or branch.
+later correction must reach participants who already cloned, help them update
+before Exercise 2 while preserving any existing work. This is facilitator-assisted
+recovery, not another required participant exercise. Do not point participants
+at another repository or branch.
 
 ## Run of show
 
@@ -85,21 +89,21 @@ claim. Validate delivery with representative participants before promising it.
 | Block | Participant instructions | Evidence before proceeding |
 | --- | --- | --- |
 | Welcome and AIDLC overview | [Workshop home](README.md) | Scope, prework readiness, and guided route understood |
-| 1 Orient | [Inspect the existing claims flow](steps/01-orient.md) | Bounded change and affected files identified |
-| 2 Initialize and constitution | [Initialize in place](steps/02-initialize-and-constitution.md) | Generated files and guardrails reviewed |
-| 3 Specify | [Adapt the reference specification](steps/03-specify.md) | Active specification and quality checklist reviewed |
-| 4 Plan and tasks | [Adapt the plan and generate tasks](steps/04-plan-and-tasks.md) | Ancillary artifacts and executable tasks agree |
+| Exercise 1 | [Explore the app](steps/exercise-1-explore-the-app.md) | Change understood; development server stopped |
+| Exercise 2 | [Install and initialize Spec Kit](steps/exercise-2-install-and-initialize-spec-kit.md) | Installation verified, generated files and project rules reviewed |
+| Exercise 3 | [Create the specification](steps/exercise-3-create-the-specification.md) | Feature folder, specification, and checklist reviewed |
+| Exercise 4 | [Create the plan and tasks](steps/exercise-4-create-the-plan-and-tasks.md) | Plan approved before tasks; artifacts and executable tasks agree |
 | Break | Pause at an artifact handoff | Current work saved and next step clear |
-| 5 Implement and test | [Bounded implementation](steps/05-implement-and-test.md) | Actual test, typecheck, build, and convergence results |
-| 6 Review and accept | [Review and human acceptance](steps/06-review-and-accept.md) | Findings evaluated and browser checks recorded |
+| Exercise 5 | [Implement and test](steps/exercise-5-implement-and-test.md) | Actual check/convergence results; app restarted for review |
+| Exercise 6 | [Review and accept](steps/exercise-6-review-and-accept.md) | Current evidence supplied to reviewer; findings and browser checks recorded |
 | Wrap-up | [Acceptance record](acceptance.md#human-acceptance-record) | Accepted or not accepted, with reasons |
 | Buffer if needed | [Nondestructive recovery](reference/README.md#nondestructive-recovery) | Resolve blockers without skipping evidence |
 
 Recovery boundaries:
 
-- After step 4, everyone needs an active `tasks.md`; use the reference breakdown
+- After Exercise 4, everyone needs an active `tasks.md`; use the reference breakdown
   through the guided workflow if tasks are missing or overly broad.
-- After step 5, test, typecheck, and build must pass. Otherwise help or pair the
+- After Exercise 5, test, typecheck, and build must pass. Otherwise help or pair the
   participant; do not skip ahead and report acceptance.
 - At any blocked checkpoint, preserve the current files, consult the matching
   reference, and review the reconciliation. Do not discard work or force a
@@ -107,10 +111,10 @@ Recovery boundaries:
 - Independent spec/plan generation is an optional alternative outside the
   guided core, not a second required pass or a buffer assignment.
 
-Agenda coverage: AIDLC and Spec-Driven Development (overview, steps 2-4);
-requirement, specification, plan, and tasks (steps 3-4); custom agents (step 6
+Agenda coverage: AIDLC and Spec-Driven Development (overview, Exercises 2-4);
+requirement, specification, plan, and tasks (Exercises 3-4); custom agents (Exercise 6
 plus the optional workshop); brownfield work (every block); AI-assisted testing,
-review, and human validation (steps 5-6).
+review, and human validation (Exercises 5-6).
 
 ## Delivery rules
 
@@ -122,8 +126,11 @@ If scope pressure appears, shorten optional explanations or use a reviewed
 reference artifact. Do not remove tests, member-isolation requirements,
 pagination, review, or human acceptance.
 
-Keep installation troubleshooting in prework, but keep in-repository initialization
-and constitution creation in the live exercise: adopting Spec Kit on existing
+Keep installation troubleshooting in prework. Exercise 2 repeats install-if-needed
+instructions so it is self-contained; participants already set up should skip
+installation and verify the command. Use Python helpers by default on Windows
+and Bash on macOS/Linux; keep the permitted PowerShell alternative available.
+Keep in-repository initialization and constitution creation live: adopting Spec Kit on existing
 code is an explicit learning outcome. Do not expand this into a full system
 inventory or an extension/workflow setup lab.
 
@@ -146,6 +153,10 @@ accessibility violations. It did **not** exercise VS Code skill discovery or the
 agent picker, real model-driven chat and latency, a person performing the browser
 checks, screen readers, macOS/Linux, or the optional workshops' implementations.
 Treat the run of show as unvalidated until a timed run in VS Code is complete.
+
+The simplified, main-only exercise instructions need a fresh participant
+rehearsal. Earlier sandbox results are not evidence that the new instructions,
+VS Code change review, or reviewer-context handoff have been rehearsed.
 
 ## Optional boundary
 

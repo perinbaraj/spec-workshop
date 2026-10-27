@@ -1,8 +1,8 @@
 # Optional workshop: appeal eligibility and an in-memory draft
 
 **Follow-on work, outside the core and its buffer.** Start from your
-[accepted claims-filter feature](../steps/06-review-and-accept.md).
-Create a separate learner branch if you want to keep the core outcome unchanged.
+[accepted claims-filter feature](../steps/exercise-6-review-and-accept.md).
+This optional work is not needed for the six-exercise core.
 
 This is a complete, bounded read-only-and-UI exercise, not an appeal-submission
 system. No Redis, database, GitHub Actions, external service, or new package is

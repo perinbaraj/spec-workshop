@@ -7,11 +7,11 @@
 > The binding behavior contract is [acceptance](../acceptance.md).
 
 [Workshop home](../README.md) · [Guided workflow](README.md) ·
-[Specify checkpoint](../steps/03-specify.md) ·
-[Plan and tasks checkpoint](../steps/04-plan-and-tasks.md)
+[Exercise 3: specification](../steps/exercise-3-create-the-specification.md) ·
+[Exercise 4: plan and tasks](../steps/exercise-4-create-the-plan-and-tasks.md)
 
-**Feature Branch**: `workshop-claims` (illustrative learner branch, not an active
-feature-directory identifier)
+**Feature**: Claims status filter and pagination. This is reference content;
+Exercise 3 creates your feature folder. Participants stay on `main`.
 
 **Created**: Reference example; retain the generated date in the active specification.
 

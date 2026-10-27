@@ -1,7 +1,7 @@
 # Optional workshop: build a small role-specific agent team
 
 **Follow-on work, outside the core and its buffer.** Start with the
-[reviewed core specification and plan](../steps/04-plan-and-tasks.md).
+[reviewed core specification and plan](../steps/exercise-4-create-the-plan-and-tasks.md).
 You may do this before implementing the core code; testing/review activities
 can continue once an implementation exists.
 
@@ -104,4 +104,4 @@ finding. **Done** means the role boundaries worked and the handoffs helped, not
 that the team generated the most files or invoked the most agents.
 
 [Workshop home](../README.md) |
-[Core review and acceptance](../steps/06-review-and-accept.md)
+[Exercise 6: core review and acceptance](../steps/exercise-6-review-and-accept.md)

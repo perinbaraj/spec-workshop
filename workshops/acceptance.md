@@ -2,10 +2,10 @@
 
 This is the requirement boundary, not a prewritten implementation.
 
-Read this contract during [specification review](steps/03-specify.md) and
-[planning](steps/04-plan-and-tasks.md). Return for the automated evidence in
-[step 5](steps/05-implement-and-test.md) and the human checks in
-[step 6](steps/06-review-and-accept.md). Adopting a reference artifact or receiving
+Read this contract during [Exercise 3: specification](steps/exercise-3-create-the-specification.md) and
+[Exercise 4: planning](steps/exercise-4-create-the-plan-and-tasks.md). Return for automated evidence in
+[Exercise 5](steps/exercise-5-implement-and-test.md) and human checks in
+[Exercise 6](steps/exercise-6-review-and-accept.md). Adopting a reference artifact or receiving
 a clean agent review does not itself accept the feature.
 
 ## API contract
@@ -152,7 +152,8 @@ TypeScript check. Do not present either as proof that every TSX type was checked
 
 ## Human acceptance record
 
-Record a brief summary in your own feature artifacts or PR draft:
+Record a brief summary in `acceptance.md` inside your generated feature folder,
+not in this shared contract:
 
 ```text
 Requirement:
@@ -166,5 +167,5 @@ Decision: accepted / not accepted
 
 Do not publish member data or screenshots containing real health information.
 
-[Back to review and acceptance](steps/06-review-and-accept.md) |
+[Back to Exercise 6: review and acceptance](steps/exercise-6-review-and-accept.md) |
 [Workshop home](README.md)

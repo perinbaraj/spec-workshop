@@ -7,11 +7,12 @@ A lean healthcare member portal (Express API + React frontend) used as the base 
 The `main` branch of this repository
 ([`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)) is an
 **unfinished learner starter**, not a completed solution.
-**[Start here: setup and the linked workshop steps](workshops/README.md#start-here).**
+**[Start here: setup and the six exercises](workshops/README.md#start-here).**
 
 - **Core:** complete pre-work tool installation and verification, then inspect
   the uninitialized brownfield app before personally initializing Spec Kit in
-  step 2. Create project guardrails, then carry one claims
+  Exercise 2, which also includes installation help if needed. Stay on `main`;
+  no new branch, commit, or push is required. Create project guardrails, then carry one claims
   status-filter/pagination change through specification, implementation, testing,
   a custom reviewer, and human acceptance. The event has a tentative three-hour
   core plus a one-hour completion buffer. Review and adapt supplied spec/plan
@@ -22,8 +23,8 @@ The `main` branch of this repository
 - **Infrastructure:** local runtimes and development tools only. No Redis server,
   database, Docker, GitHub Actions, paid cloud resources, or external healthcare APIs.
 
-The [six-step roadmap](workshops/core.md) links to detailed commands, Chat
-prompts, expected outputs, and recovery instructions for each checkpoint.
+The [six-exercise roadmap](workshops/core.md) links to detailed commands, Chat
+prompts, expected outputs, and recovery instructions for each exercise.
 The [acceptance contract](workshops/acceptance.md) defines the feature learners
 will implement. This repository contains one workshop journey, not a two-day lab pack.
 

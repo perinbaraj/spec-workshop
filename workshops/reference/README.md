@@ -7,8 +7,8 @@ or a completed application; the repository's `main` branch remains the
 unfinished starter.
 
 [Workshop home](../README.md) ·
-[Specify checkpoint](../steps/03-specify.md) ·
-[Plan and tasks checkpoint](../steps/04-plan-and-tasks.md) ·
+[Exercise 3: specification](../steps/exercise-3-create-the-specification.md) ·
+[Exercise 4: plan and tasks](../steps/exercise-4-create-the-plan-and-tasks.md) ·
 [Binding behavior contract](../acceptance.md)
 
 | Artifact | Use |
@@ -20,8 +20,8 @@ unfinished starter.
 ## Prerequisites
 
 Complete [prework](../prework.md),
-[orientation](../steps/01-orient.md), and
-[initialization and constitution](../steps/02-initialize-and-constitution.md)
+[Exercise 1](../steps/exercise-1-explore-the-app.md), and
+[Exercise 2](../steps/exercise-2-install-and-initialize-spec-kit.md)
 in your own checkout. The documented tool version is **Spec Kit 1.2.3**.
 Initialization must have created `.specify` and Copilot's `/speckit-*` skills,
 and you must have reviewed `.specify\memory\constitution.md` against repository
@@ -35,7 +35,7 @@ it as your active feature, or overwrite an existing learner feature.
 
 ## 1. Establish the active specification
 
-At [checkpoint 3](../steps/03-specify.md), select the chat skill and submit:
+At [Exercise 3](../steps/exercise-3-create-the-specification.md), select the chat skill and submit:
 
 ```text
 /speckit-specify
@@ -52,7 +52,7 @@ Inspect the feature directory actually reported by the skill under `specs`;
 do not guess its name or assume it matches your Git branch. It must contain
 `spec.md` and `checklists\requirements.md`. Retain its generated metadata, not
 the reference's illustrative metadata or reference-navigation links. Stay on
-your learner branch; no Git extension is required for this workshop.
+`main`; no Git extension or new branch is required for this workshop.
 
 Read the active specification against [acceptance](../acceptance.md), answer
 any clarification questions from that contract, and correct omissions yourself
@@ -63,7 +63,7 @@ must not bypass an incomplete checklist.
 ## 2. Establish the plan and required supporting artifacts
 
 After human specification review, at
-[checkpoint 4](../steps/04-plan-and-tasks.md) submit:
+[Exercise 4](../steps/exercise-4-create-the-plan-and-tasks.md) submit:
 
 ```text
 /speckit-plan
@@ -111,9 +111,9 @@ agent-executable checkbox list, not just a task table. Check that tests come
 before their implementation, prerequisites are explicit, and tasks address
 the contract without fixture changes or unrelated refactors. Human review,
 browser evidence, and acceptance remain in
-[checkpoint 6](../steps/06-review-and-accept.md); they cannot be agent-completed.
+[Exercise 6](../steps/exercise-6-review-and-accept.md); they cannot be agent-completed.
 
-Proceed to [implementation and testing](../steps/05-implement-and-test.md)
+Proceed to [Exercise 5: implementation and testing](../steps/exercise-5-implement-and-test.md)
 only when the active specification, plan, supporting artifacts, and tasks are
 coherent and human-reviewed. Generated text alone is not implementation evidence.
 
@@ -138,7 +138,8 @@ generation is not a second required pass after guided adaptation.
    `git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-recovery`
    and `cd spec-workshop-recovery`. Stay on `main`, repeat the
    [starter verification](../prework.md#2-verify-the-starter) there, and repeat
-   the initialization and constitution checkpoint. Do not reset or clean your
+   [initialization and constitution exercise](../steps/exercise-2-install-and-initialize-spec-kit.md).
+   Do not reset or clean your
    original checkout.
 5. Do not copy an authentication token, environment file, or member data into a
    recovery checkout.
@@ -152,7 +153,7 @@ It is not evidence of live VS Code skill discovery, real model-driven execution
 or timing, human browser/accessibility testing, or participant completion.
 The newly documented guided adaptation route is not a new end-to-end rehearsal.
 
-During this documentation update, the local `specify version` reported
+During an earlier documentation check, the local `specify version` reported
 `0.9.4.dev0`, not 1.2.3. An isolated
 `uv tool run --from specify-cli==1.2.3 specify version` attempt failed downloading
 package metadata from PyPI's file host with a TLS handshake error. No TLS or

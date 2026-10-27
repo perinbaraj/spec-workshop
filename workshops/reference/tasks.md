@@ -5,8 +5,8 @@ evidence of checks. Have `/speckit-tasks` generate the active list from the
 human-reviewed active artifacts; use this example to check format and coverage.
 
 [Workshop home](../README.md) · [Guided workflow](README.md) ·
-[Specify checkpoint](../steps/03-specify.md) ·
-[Plan and tasks checkpoint](../steps/04-plan-and-tasks.md) ·
+[Exercise 3: specification](../steps/exercise-3-create-the-specification.md) ·
+[Exercise 4: plan and tasks](../steps/exercise-4-create-the-plan-and-tasks.md) ·
 [Binding behavior contract](../acceptance.md)
 
 ## Prerequisites and format
@@ -81,7 +81,7 @@ task's files and rerun the affected check before recording success.
 
 ## Human work after implementation — not executable checkbox tasks
 
-The participant performs [checkpoint 6](../steps/06-review-and-accept.md):
+The participant performs [Exercise 6](../steps/exercise-6-review-and-accept.md):
 customizes the read/search-only reviewer, evaluates findings and scope, operates
 the browser and keyboard using [acceptance](../acceptance.md), and records
 actual results, known limitations, and the final acceptance decision.

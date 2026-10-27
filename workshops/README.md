@@ -14,23 +14,27 @@ to accept it.
 
 Complete [setup and environment verification](prework.md) before the event; it
 begins by cloning [`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop).
-Then follow the six linked guides in order: orient in the uninitialized starter
-first, then run `specify init` yourself during step 2. Each guide contains
-numbered actions, copy-ready terminal commands and Chat prompts, expected
-outputs, and recovery.
+Then follow Exercises 1-6 below. Stay on `main` in your own clone throughout:
+there is no branch creation, checkpoint commit, or push to complete.
+Explore the starter first, then run `specify init` yourself in Exercise 2.
+Already installed Spec Kit in prework? Skip that exercise's installation action,
+verify the command, and continue with initialization.
 
-| Step | Detailed participant guide | Exit checkpoint |
+Each guide tells you what to do in the terminal, Chat, editor, or browser, what
+result to inspect, and when to move on.
+
+| Exercise | Detailed participant guide | You finish with |
 | --- | --- | --- |
-| 1 | [Orient in the brownfield application](steps/01-orient.md) | Explain the existing claims flow and change boundary |
-| 2 | [Initialize Spec Kit and the constitution](steps/02-initialize-and-constitution.md) | Review generated tooling and project guardrails |
-| 3 | [Review and adapt the specification](steps/03-specify.md) | Approve behavior against the acceptance contract |
-| 4 | [Review the plan and generate tasks](steps/04-plan-and-tasks.md) | Approve consistent, bounded implementation tasks |
-| 5 | [Implement, test, and check convergence](steps/05-implement-and-test.md) | Working change with actual automated evidence |
-| 6 | [Customize the reviewer and accept the feature](steps/06-review-and-accept.md) | Human review decisions and acceptance record |
+| 1 | [Explore the app and understand the change](steps/exercise-1-explore-the-app.md) | An explanation of the claims flow and change boundary |
+| 2 | [Install and initialize Spec Kit](steps/exercise-2-install-and-initialize-spec-kit.md) | Working tooling and reviewed project rules |
+| 3 | [Create and review the specification](steps/exercise-3-create-the-specification.md) | A reviewed specification and requirements checklist |
+| 4 | [Create and review the plan and tasks](steps/exercise-4-create-the-plan-and-tasks.md) | An approved plan and executable tasks |
+| 5 | [Implement and test the feature](steps/exercise-5-implement-and-test.md) | A working change and actual automated results |
+| 6 | [Review the change and decide whether to accept it](steps/exercise-6-review-and-accept.md) | Evaluated findings, browser evidence, and your decision |
 
 Keep the [behavior contract and acceptance checklist](acceptance.md) open beside
 your work. Use [guided reference artifacts and recovery](reference/README.md)
-throughout steps 3 and 4, not only when blocked. The [core roadmap](core.md)
+throughout Exercises 3 and 4, not only when blocked. The [core roadmap](core.md)
 provides a compact view of the same journey.
 
 ## Event boundary
