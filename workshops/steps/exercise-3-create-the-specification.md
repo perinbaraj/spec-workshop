@@ -1,7 +1,7 @@
 # Exercise 3: Create and review the specification
 
 [Previous: Exercise 2](exercise-2-install-and-initialize-spec-kit.md) |
-[Workshop home](../README.md) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)
 
 ## Objective
 
@@ -137,9 +137,9 @@ planning; a model's checked boxes are not approval.
 | Problem | What to do |
 | --- | --- |
 | The spec omits contract behavior | Ask the same session to revise this feature from the backlog and contract. Do not create a second feature. |
-| Scaffold/checklist missing | Use the relevant skill to finish the same feature; see [workshop recovery](../prework.md#recovery-during-the-workshop). |
+| Scaffold/checklist missing | Use the relevant skill to finish the same feature; see [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop). |
 | State points to another feature | Stop and ask the facilitator to reconcile folder/state; do not overwrite it blindly or switch branches. |
 | Questions add new requirements | Return to the contract and facilitator instead of expanding scope. |
 
 [Previous: Exercise 2](exercise-2-install-and-initialize-spec-kit.md) |
-[Workshop home](../README.md) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)

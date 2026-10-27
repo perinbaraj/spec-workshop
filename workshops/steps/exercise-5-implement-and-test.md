@@ -1,7 +1,7 @@
 # Exercise 5: Implement and test the feature
 
 [Previous: Exercise 4](exercise-4-create-the-plan-and-tasks.md) |
-[Workshop home](../README.md) | [Next: Exercise 6](exercise-6-review-and-accept.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 6](exercise-6-review-and-accept.md)
 
 ## Objective
 
@@ -151,11 +151,11 @@ to demonstrate paging. This quick check does not replace full human acceptance.
 
 | Problem | What to do |
 | --- | --- |
-| Implementation stops at a checklist | Repair the missing requirement in the same feature; do not bypass the gate. See [workshop recovery](../prework.md#recovery-during-the-workshop). |
+| Implementation stops at a checklist | Repair the missing requirement in the same feature; do not bypass the gate. See [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop). |
 | `EADDRINUSE` / port 3000 conflict | Stop your development terminal, then rerun tests. Ask about unknown processes instead of killing them. |
 | Missing-auth test unexpectedly succeeds | Ask the facilitator whether `DEV_MEMBER_ID` is set. Missing-auth evidence requires it unset; preserve/restore test-managed environment state. |
 | No second page | Use M-10001, All statuses, and `http://localhost:5173/?pageSize=1`; inspect agreed URL/client/API behavior. |
 | Checks still fail or gaps remain | Preserve work and exact failures; ask the facilitator. Do not delete tests or claim success. |
 
 [Previous: Exercise 4](exercise-4-create-the-plan-and-tasks.md) |
-[Workshop home](../README.md) | [Next: Exercise 6](exercise-6-review-and-accept.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 6](exercise-6-review-and-accept.md)

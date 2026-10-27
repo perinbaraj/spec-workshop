@@ -1,7 +1,7 @@
 # Exercise 4: Create and review the plan and tasks
 
 [Previous: Exercise 3](exercise-3-create-the-specification.md) |
-[Workshop home](../README.md) | [Next: Exercise 5](exercise-5-implement-and-test.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 5](exercise-5-implement-and-test.md)
 
 ## Objective
 
@@ -160,11 +160,11 @@ changed. Correct the list before approving implementation.
 
 | Problem | What to do |
 | --- | --- |
-| A skill cannot find the feature | Check the reported folder/state from Exercise 3; use [workshop recovery](../prework.md#recovery-during-the-workshop), not a new feature or branch. |
+| A skill cannot find the feature | Check the reported folder/state from Exercise 3; use [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop), not a new feature or branch. |
 | Supporting files missing | Ask the same planning skill/session to finish this feature before generating tasks. |
 | Tasks lack checkboxes/paths or put tests last | Ask `/speckit-tasks` to correct this list before implementation. |
 | The plan adds packages or infrastructure | Reject the expansion and revise against the existing code and contract. |
 | Browser acceptance is executable | Remove those tasks and retain the human handoff to Exercise 6. |
 
 [Previous: Exercise 3](exercise-3-create-the-specification.md) |
-[Workshop home](../README.md) | [Next: Exercise 5](exercise-5-implement-and-test.md)
+[Workshop home](../../README.md#start-here) | [Next: Exercise 5](exercise-5-implement-and-test.md)

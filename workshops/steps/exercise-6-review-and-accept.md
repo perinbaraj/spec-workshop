@@ -1,7 +1,7 @@
 # Exercise 6: Review the change and decide whether to accept it
 
 [Previous: Exercise 5](exercise-5-implement-and-test.md) |
-[Workshop home](../README.md) | [Next: acceptance checklist](../acceptance.md)
+[Workshop home](../../README.md#start-here) | [Next: acceptance checklist](../acceptance.md)
 
 ## Objective
 
@@ -174,8 +174,8 @@ or push is required.
 - [ ] Your feature folder contains an explicit accepted/not accepted decision.
 
 **Accepted** means the requirements and evidence support it. Otherwise preserve
-the work and resolve named blockers with the facilitator. This completes the six
-core exercises; optional workshops are not required.
+the work and resolve named blockers with the facilitator. This completes
+Exercises 0-6; optional workshops are not required.
 
 ## If You Get Stuck
 
@@ -185,10 +185,10 @@ core exercises; optional workshops are not required.
 | Reviewer wants commands or edits | Decline. The normal implementation session makes fixes; supply its real results to the read-only reviewer. |
 | Context/evidence missing | Attach current files and paste current diff/new-file content and real output. Keep the limitation explicit until supplied. |
 | Finding seems wrong | Read the source and requirement; clarify or reject with a reason. |
-| Browser checks fail | Record not accepted and the unmet requirement. Use [workshop recovery](../prework.md#recovery-during-the-workshop) rather than skipping acceptance. |
+| Browser checks fail | Record not accepted and the unmet requirement. Use [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop) rather than skipping acceptance. |
 
 Resources: [VS Code chat context](https://code.visualstudio.com/docs/chat/copilot-chat-context)
 and [custom agents](https://code.visualstudio.com/docs/agent-customization/custom-agents).
 
 [Previous: Exercise 5](exercise-5-implement-and-test.md) |
-[Workshop home](../README.md) | [Next: acceptance checklist](../acceptance.md)
+[Workshop home](../../README.md#start-here) | [Next: acceptance checklist](../acceptance.md)

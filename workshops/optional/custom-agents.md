@@ -103,5 +103,5 @@ Record one example where you corrected an agent's assumption or rejected a
 finding. **Done** means the role boundaries worked and the handoffs helped, not
 that the team generated the most files or invoked the most agents.
 
-[Workshop home](../README.md) |
+[Workshop home](../../README.md#start-here) |
 [Exercise 6: core review and acceptance](../steps/exercise-6-review-and-accept.md)

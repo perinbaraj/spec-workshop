@@ -115,5 +115,5 @@ Manually verify:
 **Done:** the read-only eligibility contract, focused tests, temporary draft,
 review, and human acceptance all pass. Actual appeal submission remains absent.
 
-[Workshop home](../README.md) |
+[Workshop home](../../README.md#start-here) |
 [Core acceptance contract](../acceptance.md)

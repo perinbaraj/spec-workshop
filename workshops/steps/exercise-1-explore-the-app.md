@@ -1,6 +1,6 @@
 # Exercise 1: Explore the app and understand the change
 
-[Previous: prework](../prework.md) | [Workshop home](../README.md) |
+[Previous: Exercise 0](exercise-0-setup.md) | [Workshop home](../../README.md#start-here) |
 [Next: Exercise 2](exercise-2-install-and-initialize-spec-kit.md)
 
 ## Objective
@@ -10,7 +10,7 @@ Do not edit application code or initialize Spec Kit in this exercise.
 
 ## Prerequisites
 
-- Complete [prework](../prework.md); open your own `spec-workshop` clone in VS Code.
+- Complete [Exercise 0](exercise-0-setup.md); open your own `spec-workshop` clone in VS Code.
 - Confirm Explorer shows `package.json`, `server`, `src`, and `workshops`.
 - Stay on `main` throughout the workshop: no branch creation, commits, or push.
 - Keep [the acceptance contract](../acceptance.md) available.
@@ -112,10 +112,10 @@ changed, and the starter is ready for live Spec Kit initialization.
 
 | Problem | What to do |
 | --- | --- |
-| The app does not start | Return to [starter verification](../prework.md#2-verify-the-starter) and read the terminal error. |
+| The app does not start | Return to [starter verification](exercise-0-setup.md#verify-the-starter) and read the terminal error. |
 | A port is already in use | Stop only processes you started using their terminal; ask about an unknown process. |
 | Copilot starts editing | Stop the action and repeat the explanation-only prompt. Preserve existing work. |
 | The member label looks wrong | Switching members returns to Profile and can leave the header label stale. Reopen Claims and identify the member by its claims; see [starter quirks](../acceptance.md#starter-quirks-that-are-not-part-of-this-change). |
 
-[Previous: prework](../prework.md) | [Workshop home](../README.md) |
+[Previous: Exercise 0](exercise-0-setup.md) | [Workshop home](../../README.md#start-here) |
 [Next: Exercise 2](exercise-2-install-and-initialize-spec-kit.md)

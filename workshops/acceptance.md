@@ -212,4 +212,4 @@ Decision: accepted / not accepted
 Do not publish member data or screenshots containing real health information.
 
 [Back to Exercise 6: review and acceptance](steps/exercise-6-review-and-accept.md) |
-[Workshop home](README.md)
+[Workshop home](../README.md#start-here)

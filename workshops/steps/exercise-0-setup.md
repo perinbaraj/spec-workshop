@@ -1,12 +1,13 @@
-# Prework: Prepare before the event
+# Exercise 0: Set up your workshop environment
 
-[Workshop home](README.md) | [Next: Exercise 1](steps/exercise-1-explore-the-app.md)
+[Workshop home](../../README.md#start-here) |
+[Next: Exercise 1](exercise-1-explore-the-app.md)
 
 ## Objective
 
-Prepare your own workshop clone, verify the unchanged starter, and install
-Spec Kit before the event. **Do not initialize Spec Kit yet**: you will do that
-yourself in Exercise 2.
+Complete this setup exercise before the event: prepare your own clone, verify
+the unchanged starter, and install Spec Kit. **Do not initialize Spec Kit yet**:
+you will do that yourself in Exercise 2.
 
 ## Prerequisites
 
@@ -25,7 +26,7 @@ The uv and pinned Spec Kit installation steps are included below.
 You do not need Redis, Docker, a database, GitHub Actions, a cloud account, or
 healthcare-service credentials.
 
-## The Workshop Backlog
+## The Backlog Item
 
 You will add a status filter and pagination to the existing Claims view and API.
 Setup only prepares the starter; it does not implement this change.
@@ -44,8 +45,8 @@ code .
 ```
 
 **Expected output:** VS Code opens `spec-workshop` with `package.json`, `server`,
-`src`, and `workshops`. Its branch indicator shows `main`. Stay on `main` for all
-six exercises: do not create branches, make checkpoint commits, or push.
+`src`, and `workshops`. Its branch indicator shows `main`. Stay on `main`
+throughout Exercises 0-6: do not create branches, make checkpoint commits, or push.
 
 If `code` is not on PATH, use **File > Open Folder**. Open **Terminal > New
 Terminal** in that folder for the remaining commands.
@@ -63,7 +64,7 @@ code .
 Do not substitute a different repository URL. For an access error, check the URL
 and your network/GitHub access, then tell the facilitator.
 
-<a id="2-verify-the-starter"></a>
+<a id="verify-the-starter"></a>
 
 ### Step 2: Verify the starter (Terminal)
 
@@ -114,7 +115,7 @@ Press **Ctrl+C** in the development terminal you started.
 commands again. Always stop them before `npm test`: the tests start an API
 listener and can conflict with a running development API on port 3000.
 
-<a id="3-install-and-verify-spec-kit"></a>
+<a id="install-and-verify-spec-kit"></a>
 
 ### Step 5: Install and verify Spec Kit (Terminal)
 
@@ -182,7 +183,7 @@ executes commands and fixes code.
 
 If discovery fails, confirm the repository root and saved profile, then use
 customization diagnostics or reload as needed. See the
-[reviewer profile](../.github/agents/workshop-reviewer.agent.md) and
+[reviewer profile](../../.github/agents/workshop-reviewer.agent.md) and
 [custom-agent documentation](https://code.visualstudio.com/docs/copilot/customization/custom-agents).
 
 ## Exit Criteria
@@ -192,16 +193,16 @@ customization diagnostics or reload as needed. See the
 - [ ] Specify reports `1.2.3`; the reviewer is selectable and read-only.
 - [ ] The app is stopped and Spec Kit has **not** been initialized here.
 
-Tell the facilitator about blockers before the event. Start with
-[Exercise 1](steps/exercise-1-explore-the-app.md), then run initialization
-yourself in [Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md).
+Tell the facilitator about blockers before the event. When all exit criteria
+are met, continue to [Exercise 1](exercise-1-explore-the-app.md).
+Initialization still happens in [Exercise 2](exercise-2-install-and-initialize-spec-kit.md).
 
 ## Recovery during the workshop
 
 1. **Preserve your current files.** Keep the checkout and actual error output.
    Do not reset, clean, delete generated work, or overwrite someone else's work.
 2. **Repair the same feature.** Read the reviewed constitution, your generated
-   artifacts, and [the acceptance contract](acceptance.md). In the normal
+   artifacts, and [the acceptance contract](../acceptance.md). In the normal
    implementation chat, use the relevant `/speckit-specify`,
    `/speckit-clarify`, `/speckit-plan`, or `/speckit-tasks` skill to repair the
    **existing** feature and missing scaffold/supporting files. State its exact
@@ -224,13 +225,14 @@ yourself in [Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md).
    original checkout is preserved. If that recovery folder already exists,
    ask the facilitator for a fresh name instead of overwriting it.
 
-   Repeat [starter verification](#2-verify-the-starter), then
-   [Exercise 1](steps/exercise-1-explore-the-app.md) and
-   [Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md) there.
+   Repeat [starter verification](#verify-the-starter), then
+   [Exercise 1](exercise-1-explore-the-app.md) and
+   [Exercise 2](exercise-2-install-and-initialize-spec-kit.md) there.
    The installed CLI can be reused after verification; the new checkout still
    needs its own initialization and reviewed constitution. Generate and review
    the new feature artifacts before resuming implementation.
 5. **Keep secrets and member data out.** Do not copy tokens, environment files,
    or real member data into the recovery checkout.
 
-[Workshop home](README.md) | [Next: Exercise 1](steps/exercise-1-explore-the-app.md)
+[Workshop home](../../README.md#start-here) |
+[Next: Exercise 1](exercise-1-explore-the-app.md)
