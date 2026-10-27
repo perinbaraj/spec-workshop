@@ -15,8 +15,8 @@ The `main` branch of this repository
   no new branch, commit, or push is required. Create project guardrails, then carry one claims
   status-filter/pagination change through specification, implementation, testing,
   a custom reviewer, and human acceptance. The event has a tentative three-hour
-  core plus a one-hour completion buffer. Review and adapt supplied spec/plan
-  examples rather than starting from a blank page.
+  core plus a one-hour completion buffer. Generate your specification, plan, and
+  tasks from the backlog, acceptance contract, and existing code.
 - **Optional:** [multiple custom agents](workshops/optional/custom-agents.md) and
   [appeal eligibility and drafting](workshops/optional/claim-appeals.md).
   Neither is required to complete the core workshop.

@@ -3,125 +3,168 @@
 [Previous: Exercise 3](exercise-3-create-the-specification.md) |
 [Workshop home](../README.md) | [Next: Exercise 5](exercise-5-implement-and-test.md)
 
-## What you will do
+## Objective
 
-Create a technical plan for the approved specification, review it, then generate
-the tasks Copilot will execute. **Review the plan before asking for tasks.
-Do not implement code in this exercise.**
+Generate a technical plan from the approved specification and existing code.
+Review the plan **before** generating executable tasks. Do not implement yet.
 
-## Before you start
+## Prerequisites
 
-Finish [Exercise 3](exercise-3-create-the-specification.md), including its
-requirements checklist. Use the same feature folder throughout. Stay on `main`
-and keep the development server stopped.
+- Finish [Exercise 3](exercise-3-create-the-specification.md), including human
+  specification approval and its completed requirements checklist.
+- Use the same reported feature folder, stay on `main`, and keep the app stopped.
+- Keep [the acceptance contract](../acceptance.md) available.
 
-## Do this
+## The Backlog Item
 
-### 1. Editor: read the example approach
+Plan the already-approved claims-filter and pagination change. Translate the
+behavior into work on the existing API, typed client, and Claims view without
+introducing a new architecture or feature.
 
-Open [the reference plan](../reference/plan.md) and
-[the acceptance contract](../acceptance.md).
-Compare the approach with the existing [API](../../server/server.ts),
-[client](../../src/services/httpClient.ts),
-[Claims view](../../src/components/ClaimsList.tsx), and
-[tests](../../tests/server.test.ts).
+## Step-by-step Instructions
 
-The plan should extend those files, preserve member scoping, and update the API
-and its client/view together. The app already has the needed dependencies.
+### Step 1: Inspect the code before planning (Editor)
 
-### 2. Copilot Chat: generate the plan
+Read your `spec.md` and constitution alongside these existing files:
+
+| File | Planning question |
+| --- | --- |
+| [API](../../server/server.ts) | Where are authentication, claims-list handling, and route validation? |
+| [Data helper](../../server/data.ts) | How does `getClaimsForMember` already isolate claims? |
+| [Types](../../src/types.ts) and [client](../../src/services/httpClient.ts) | What returns `Claim[]` today, and which consumers must change with metadata? |
+| [Claims view](../../src/components/ClaimsList.tsx) and [styles](../../src/App.css) | Where do request state, controls, and claims-scoped styles belong? |
+| [Tests](../../tests/server.test.ts) and [packages](../../package.json) | Which fixtures, dependencies, and test patterns are already available? |
+
+**Expected output:** You recognize the existing Express/Zod, React hooks,
+typed-client, and Vitest/Supertest approach. The plan should extend the claims
+flow coherently, not add packages, a service layer, new data exports, or a
+route-wide refactor. The fixtures need no changes.
+
+### Step 2: Generate the plan and supporting documents (Copilot Chat)
 
 In the normal implementation agent, submit:
 
 ```text
 /speckit-plan
-Use the SAME active claims-filter feature's reviewed spec and constitution.
-Read workshops/reference/plan.md and workshops/acceptance.md.
-Adapt the reference plan to the existing Express/Zod API, member-scoped
-in-memory helper, typed HTTP client, React hooks, and Vitest/Supertest tests.
-Preserve the claims response property and update pagination metadata and
-its client/UI consumers together. Keep fixtures unchanged.
-Include browser pageSize behavior and API tests using pageSize=1.
+Plan the SAME active claims-filter feature from its human-reviewed spec,
+constitution, workshops/acceptance.md, and the existing application code.
+Inspect Express/Zod, getClaimsForMember, the Claim status union, the typed
+HTTP client, React hooks, styles, and Vitest/Supertest tests before designing.
+Preserve the claims response property and update pagination metadata,
+client types, and UI consumers together. Keep synthetic fixtures unchanged.
+Cover query validation, member isolation before filtering/counting/paging,
+browser pageSize behavior, obsolete requests, and accessible UI states.
 Generate the normal plan.md, research.md, data-model.md, contracts, and
-quickstart.md artifacts in this feature folder. Report their exact paths.
-Include actual automated checks and a separate human browser/review handoff.
-Do not invent measurements or add packages, services, storage, deployment,
-or broad refactors. Do not implement, change permissions, commit, or push.
+quickstart.md in this feature folder. Report their exact paths.
+Include test-first API coverage using pageSize=1, actual automated checks,
+and a separate human browser/reviewer/acceptance handoff.
+Do not invent results or add packages, services, storage, deployment,
+or broad refactors. Stay on main; do not create or switch branches.
+Generate planning artifacts only; do not implement, change permissions,
+commit, or push.
 ```
 
-### 3. Editor: review the plan before continuing
+**Expected output:** A technical plan grounded in your reviewed requirements and
+actual code, plus the supporting documents in the **same** feature folder.
+No application changes or implementation tasks should be generated yet.
 
-Open the reported files in your feature folder:
+### Step 3: Review and approve the plan (Editor)
+
+Open all reported planning outputs:
 
 | Output | What to check |
 | --- | --- |
-| `plan.md` | The technical approach and intended source-file changes |
-| `research.md` | Decisions fit the existing app, rather than inventing dependencies |
-| `data-model.md` | Existing claims and pagination metadata, not a new database |
-| `contracts` | The local API response and input rules |
-| `quickstart.md` | How to verify the feature later, not claims that checks already passed |
+| `plan.md` | Concrete source/test paths and an approach consistent with the spec and constitution |
+| `research.md` | Existing-code findings and resolved validation, compatibility, page-size, and stale-request decisions |
+| `data-model.md` | Existing claims and query/pagination types, not new persistence |
+| `contracts` | Local `GET /api/claims` inputs, response, auth, invalid-input and empty/out-of-range rules, not a downstream service |
+| `quickstart.md` | Verification commands, synthetic-member/page-size examples, evidence location, and later human handoff—not claimed passes |
 
-Read `plan.md` and skim the others for disagreement or placeholders. Confirm
-member scope precedes filtering/counting/slicing, invalid inputs get generic
-errors, the API/client/view agree, and the UI handles empty/error/stale responses.
-The verification plan must cover authentication, member isolation, and paging
-boundaries using existing fixtures.
+Check these technical agreements before approving:
 
-If anything is wrong, ask the same session to revise these planning artifacts.
-**Continue only when you have reviewed and approved the plan.**
+- Member scope precedes filtering, counting, and slicing. Defaults apply only
+  when API inputs are omitted; invalid/empty/repeated/structured inputs receive
+  generic errors rather than coercion or clamping.
+- The API, client types, and view agree on the response and existing status union.
+  Auth headers and other routes stay intact.
+- Existing fixtures cover all statuses, empty matches, stable order, size-1
+  pages, out-of-range pages, size 100/101, and two-member results **and** totals.
+  Missing-auth evidence unsets `DEV_MEMBER_ID` and restores test-managed state.
+- The view resets the page with the filter, handles the browser page-size
+  choice, and cancels/ignores obsolete success, error, and completion callbacks.
+  Controls remain available through empty/error/loading states without needless
+  focus loss; any error-contrast styles are claims-scoped, not shared changes.
+- Privacy, validation, and accessibility apply to every story. Automated checks
+  and human browser/review/acceptance work remain distinct.
 
-### 4. Copilot Chat: generate implementation tasks
+**Expected output:** Supporting files agree, unknowns/placeholders are resolved,
+and the plan fits the existing app. Request revisions in the same planning
+session if needed. **Do not proceed until you have reviewed and approved it.**
 
-Now submit a separate prompt:
+### Step 4: Generate tasks from the reviewed plan (Copilot Chat)
+
+Only after approval, submit a separate prompt:
 
 ```text
 /speckit-tasks
 Generate tasks.md for the SAME active feature from its human-reviewed
 spec, plan, contracts, data model, and research.
-Read workshops/reference/tasks.md for format/coverage guidance and
-workshops/acceptance.md for the binding requirements.
-Use executable - [ ] T001-style tasks with concrete file paths,
-dependencies, and story/parallel markers where appropriate.
+Use workshops/acceptance.md for the binding behavior requirements.
+Write unique - [ ] T001-style executable tasks with concrete file paths,
+dependencies, and story/parallel markers only where appropriate.
 Add and RUN focused tests BEFORE implementing the behavior they test,
-so the expected failures are observed. Keep the API/client/UI update coherent.
-Cover validation, filtering, pagination, auth, member isolation, and resilient UI.
+so expected new-contract failures are observed and recorded.
+Keep the API/client/UI update coherent. Cover validation, filtering,
+pagination, auth, member isolation, and resilient accessible UI.
 Include npm test, npm run typecheck, and npm run build with actual results.
 Do not add setup already satisfied, dependencies, or fixture changes.
-Keep human browser checks, reviewer decisions, and final acceptance OUT of
-executable checkbox tasks; describe them as the separate Exercise 6 handoff.
-Generate tasks only. Do not implement, change permissions, commit, or push.
+Keep human browser checks, reviewer customization/finding decisions,
+scope approval, and final acceptance OUT of executable checkbox tasks.
+Describe those as the separate Exercise 6 handoff.
+Generate tasks only. Stay on main; do not create or switch branches,
+implement, change permissions, commit, or push.
 ```
 
-### 5. Editor: check the tasks and changed files
+**Expected output:** An executable `tasks.md` derived from the reviewed plan,
+not a supplied task list or a prose-only table. For example, a task's format is:
 
-Open `tasks.md` in your feature folder. It should contain executable checkbox
-lines such as `- [ ] T001 ...`, not just a prose table.
+```markdown
+- [ ] T001 [US1] Add focused claims-filter contract tests in tests\server.test.ts
+```
 
-Check that tests come before the code they cover, file paths are concrete,
-dependencies make sense, and the tasks include running the checks. Human
-acceptance must not be a task the implementation agent can mark complete.
+This single illustrative line is not the complete task list.
 
-Open **Source Control** to inspect changed files, and Explorer for new files.
-Only tooling and feature documents should have changed so far, not application
-code. Read `spec.md`, `plan.md`, and `tasks.md` together once to confirm agreement.
+### Step 5: Review task order and the handoff (Editor)
 
-## Check your result
+Read `spec.md`, `plan.md`, and `tasks.md` together. Inspect changed files in
+Source Control and new files in Explorer.
 
-Your one feature folder contains a reviewed plan and supporting documents,
-plus an executable, test-first `tasks.md`. You have approved the handoff to
-implementation. Application code remains unchanged.
+**Expected output:** Tasks have unique IDs, concrete paths, real dependencies,
+and coverage of the approved behavior. Adding **and running** focused tests
+precedes production changes. Shared-file/API-client-view changes are not
+incorrectly marked parallel. Missing dependencies, port conflicts, or syntax
+errors are not expected test-first evidence.
 
-Continue to [Exercise 5: implement and test](exercise-5-implement-and-test.md).
+The tasks include actual final checks and evidence recording, but no
+agent-completable human acceptance tasks. Only tooling/feature documents have
+changed. Correct the list before approving implementation.
 
-## If you get stuck
+## Exit Criteria
+
+- [ ] You approved the plan and all required supporting artifacts.
+- [ ] The same feature has a coherent, executable, test-first `tasks.md`.
+- [ ] Human review, browser checks, and acceptance remain a separate handoff.
+- [ ] Application code is unchanged; you approve moving to implementation.
+
+## If You Get Stuck
 
 | Problem | What to do |
 | --- | --- |
-| The skill cannot find the feature | Return to [Exercise 3](exercise-3-create-the-specification.md) and check the reported folder/state. Do not create another feature or switch branches. |
-| Supporting files are missing | Ask the same planning session to finish the normal artifacts for this feature. |
-| Tasks are only a table, lack file paths, or put tests last | Ask `/speckit-tasks` to correct the existing list before implementation. See [the example](../reference/tasks.md). |
-| The plan adds packages or infrastructure | Reject that expansion and request a revision against the existing app and contract. |
-| Browser acceptance appears as executable tasks | Remove those tasks; keep human checks in [Exercise 6](exercise-6-review-and-accept.md). |
+| A skill cannot find the feature | Check the reported folder/state from Exercise 3; use [workshop recovery](../prework.md#recovery-during-the-workshop), not a new feature or branch. |
+| Supporting files missing | Ask the same planning skill/session to finish this feature before generating tasks. |
+| Tasks lack checkboxes/paths or put tests last | Ask `/speckit-tasks` to correct this list before implementation. |
+| The plan adds packages or infrastructure | Reject the expansion and revise against the existing code and contract. |
+| Browser acceptance is executable | Remove those tasks and retain the human handoff to Exercise 6. |
 
 [Previous: Exercise 3](exercise-3-create-the-specification.md) |
 [Workshop home](../README.md) | [Next: Exercise 5](exercise-5-implement-and-test.md)

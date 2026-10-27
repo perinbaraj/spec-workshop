@@ -3,45 +3,53 @@
 [Previous: prework](../prework.md) | [Workshop home](../README.md) |
 [Next: Exercise 2](exercise-2-install-and-initialize-spec-kit.md)
 
-## What you will do
+## Objective
 
-Run the existing Member Portal, inspect its claims flow, and understand the one
-feature you will build: filtering and paging through the current member's claims.
-**Do not change application code or initialize Spec Kit in this exercise.**
+Trace the existing claims flow and explain the one change you will build.
+Do not edit application code or initialize Spec Kit in this exercise.
 
-## Before you start
+## Prerequisites
 
-Complete [prework](../prework.md). Open your own `spec-workshop` folder in VS Code.
-Explorer should show `package.json`, `server`, `src`, and `workshops`.
-Stay on `main` throughout all six exercises; you do not need to create a branch,
-commit, or push. Keep [the acceptance contract](../acceptance.md) open.
+- Complete [prework](../prework.md); open your own `spec-workshop` clone in VS Code.
+- Confirm Explorer shows `package.json`, `server`, `src`, and `workshops`.
+- Stay on `main` throughout the workshop: no branch creation, commits, or push.
+- Keep [the acceptance contract](../acceptance.md) available.
 
-## Do this
+## The Backlog Item
 
-### 1. Terminal: start the app
+> As a signed-in member, I want to filter my claims by status and move through
+> the results so I can find relevant claims without seeing another member's data.
 
-Select **Terminal > New Terminal** in VS Code. From the project folder, run:
+This is a bounded change to the existing Claims API, typed client, and view.
+Keep the other screens and routes unchanged. Do not build refills, appeals,
+mutations, or new infrastructure.
+
+## Step-by-step Instructions
+
+### Step 1: Start the app (Terminal)
+
+In **Terminal > New Terminal**, from the folder containing `package.json`, run:
 
 ```text
 npm run dev
 ```
 
-Wait for both the API and Vite readiness messages. Keep this terminal open while
-you use the app. On Windows, use `npm.cmd` in place of `npm` throughout the
-workshop if PowerShell blocks npm's script; do not change execution policy.
+**Expected output:** The API on port 3000 and Vite on port 5173 report readiness.
+Leave this terminal open while you inspect the app. On Windows, use `npm.cmd`
+if PowerShell blocks npm's `.ps1` shim; do not change execution policy.
 
-### 2. Browser: see what already works
+### Step 2: Explore the starting behavior (Browser)
 
-Open `http://localhost:5173`. Visit Profile, Claims, and Prescriptions.
-Use only the provided synthetic members.
+Open `http://localhost:5173`. Visit Profile, Claims, and Prescriptions using
+only the provided synthetic members.
 
-**Expected:** Claims displays the current member's claims, but has no status
-filter or paging controls. This is the starting point, not a defect to fix yet.
-The exercise does not implement refills, appeals, or other missing features.
+**Expected output:** All three views load. Claims lists the current member's
+claims but has no status filter or paging controls. This is the intended
+starting point, not a defect to fix yet.
 
-### 3. Editor: locate the existing claims flow
+### Step 3: Locate the claims flow (Editor)
 
-Open these files. You do not need to read every line:
+Open these files and find the listed parts; you do not need to read every line.
 
 | File | Find this |
 | --- | --- |
@@ -52,10 +60,13 @@ Open these files. You do not need to read every line:
 | [Claims view](../../src/components/ClaimsList.tsx) | Fetching and loading/error/empty/list rendering |
 | [Tests](../../tests/server.test.ts) | Existing Vitest/Supertest examples |
 
-### 4. Copilot Chat: ask for an explanation, not edits
+**Expected output:** You can follow the path from the member header through the
+API and member-scoped helper to the client and Claims view. The route returns
+`{ claims }`; the client unwraps it into an array.
 
-Open VS Code Chat in the normal implementation agent, not `workshop-reviewer`.
-Submit this prompt:
+### Step 4: Ask for an explanation only (Copilot Chat)
+
+Select the normal implementation agent, **not** `workshop-reviewer`, and submit:
 
 ```text
 Inspect the existing claims flow and .github/copilot-instructions.md.
@@ -67,37 +78,44 @@ Separate existing behavior from the behavior we still need to build.
 Do not edit files, install tools, initialize Spec Kit, commit, or push.
 ```
 
-Open the files cited in the response. Confirm the API currently returns
-`{ claims }` and the client unwraps it into an array. Later, adding pagination
-metadata will require updating the API, client, and view together.
+**Expected output:** An explanation with source-file references, not edits.
+Open the cited files and verify the claims yourself. Adding pagination metadata
+later will require the API, client, and view to change together.
 
-### 5. Explain the goal, then stop the app
+### Step 5: Explain the scope (Editor)
 
-In your own words, describe the change using [the contract](../acceptance.md):
+Read [the acceptance contract](../acceptance.md). Describe the change in your
+own words before continuing.
 
-- Show only the signed-in member's claims and totals.
-- Filter by status, then paginate in the existing order.
-- Add accessible controls and preserve loading, error, and empty states.
-- Use the existing fixtures; `pageSize=1` will make two pages visible later.
+**Expected output:** Your description includes:
 
-Return to the terminal running the app and press **Ctrl+C** to stop the
-development processes you started.
+- Only the signed-in member's claims and totals.
+- Status filtering before pagination, preserving existing order.
+- Accessible controls and loading, error, empty, and stale-response handling.
+- Existing fixtures, with `pageSize=1` to demonstrate two pages later.
 
-## Check your result
+### Step 6: Stop the app (Terminal)
 
-You can explain the current claims flow and the intended change. No feature
-code has changed, and your development server is stopped.
+Press **Ctrl+C** in the development terminal you started.
 
-Continue to [Exercise 2: install and initialize Spec Kit](exercise-2-install-and-initialize-spec-kit.md).
+**Expected output:** Your development processes stop. No feature code has
+changed, and the starter is ready for live Spec Kit initialization.
 
-## If you get stuck
+## Exit Criteria
+
+- [ ] You can explain the current API-to-client-to-view flow.
+- [ ] You can distinguish the backlog from existing behavior.
+- [ ] Application code is unchanged; Spec Kit is not initialized yet.
+- [ ] Your development server is stopped.
+
+## If You Get Stuck
 
 | Problem | What to do |
 | --- | --- |
-| The app does not start | Return to [prework's starter checks](../prework.md#2-verify-the-starter) and read the terminal error. |
-| A port is already in use | Stop only processes you started using their terminal. Ask the facilitator about an unknown process. |
-| Copilot starts editing | Stop that action and repeat the explanation-only prompt. Preserve any existing work. |
-| The member label looks wrong | Switching members returns to Profile and can leave the header label stale. Reopen Claims and identify the member by the claims shown; see [starter quirks](../acceptance.md#starter-quirks-that-are-not-part-of-this-change). |
+| The app does not start | Return to [starter verification](../prework.md#2-verify-the-starter) and read the terminal error. |
+| A port is already in use | Stop only processes you started using their terminal; ask about an unknown process. |
+| Copilot starts editing | Stop the action and repeat the explanation-only prompt. Preserve existing work. |
+| The member label looks wrong | Switching members returns to Profile and can leave the header label stale. Reopen Claims and identify the member by its claims; see [starter quirks](../acceptance.md#starter-quirks-that-are-not-part-of-this-change). |
 
 [Previous: prework](../prework.md) | [Workshop home](../README.md) |
 [Next: Exercise 2](exercise-2-install-and-initialize-spec-kit.md)

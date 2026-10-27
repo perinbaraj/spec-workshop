@@ -5,8 +5,26 @@ This is the requirement boundary, not a prewritten implementation.
 Read this contract during [Exercise 3: specification](steps/exercise-3-create-the-specification.md) and
 [Exercise 4: planning](steps/exercise-4-create-the-plan-and-tasks.md). Return for automated evidence in
 [Exercise 5](steps/exercise-5-implement-and-test.md) and human checks in
-[Exercise 6](steps/exercise-6-review-and-accept.md). Adopting a reference artifact or receiving
-a clean agent review does not itself accept the feature.
+[Exercise 6](steps/exercise-6-review-and-accept.md). Generated artifacts, completed
+implementation tasks, or a clean agent review do not themselves accept the feature.
+
+## Member need and scope
+
+**Backlog item:** As a signed-in member, I want to filter my claims by status and
+move through the results so I can find relevant claims without seeing another
+member's data.
+
+Extend the existing Claims view and claims-list API only. Members can select one
+status or return to all statuses, navigate matching claims, and see their current
+page and matching totals. Privacy, validation, and accessible, resilient states
+apply to the whole feature, not a later optional slice.
+
+Out of scope: refills, submitting appeals, any data-writing operation, new
+storage or persistence, Redis or other infrastructure, external services,
+deployment or hosted workflows, new dependencies, and broad refactoring.
+Preserve all unrelated routes and screens, including claim detail, Profile,
+and Prescriptions. Reuse the existing synthetic fixtures; do not add mocks,
+change fixtures, or add data exports to make pagination visible.
 
 ## API contract
 
@@ -23,7 +41,10 @@ Extend `GET /api/claims` with:
 
 The "All statuses" UI option omits `status`; it does not send `status=all`.
 Reject empty or repeated values rather than accepting an arbitrary first value.
-An unknown status or out-of-range page size is invalid.
+Arrays, objects, malformed numbers, unknown statuses, and out-of-range page sizes
+are invalid. Defaults apply only when the corresponding input is omitted.
+All invalid-input cases return the same generic 400 message, without internal
+details or adjusted results.
 
 Preserve `claims` and add:
 
@@ -40,8 +61,10 @@ Preserve `claims` and add:
 ```
 
 Derive the member from the existing authentication middleware. Apply member
-scoping, then status filtering, then pagination; calculate totals from that
-same scoped and filtered collection. Preserve fixture order.
+scoping before status filtering, counting, or slicing. Filter the scoped claims,
+calculate totals from that same collection, then paginate in stable fixture
+order. `totalPages` is the ceiling of `total / pageSize`; retain the requested
+`page` and effective `pageSize` in the metadata.
 
 No matching claims returns 200 with an empty list and zero totals. A page beyond
 the last page also returns 200 and an empty list, but retains the actual total
@@ -50,7 +73,27 @@ and totalPages. Do not silently move to another page.
 Missing authentication remains 401 when `DEV_MEMBER_ID` is not configured.
 This list feature has no foreign-member selector. Do not add a query parameter
 that lets a caller choose another member, and do not refactor the unrelated
-claim-detail route. Do not log member details, diagnoses, medications, or bodies.
+claim-detail route. Do not log member details, diagnoses, medications, or
+request/response bodies.
+
+## Claims view requirements
+
+- Start on page one with a labeled status selector defaulting to All statuses.
+  Offer all five supported statuses. A status change returns to page one.
+- Show the current page, total matching claims, and total pages alongside the
+  results. Previous and Next move to adjacent pages and are unavailable at their
+  boundaries or for empty results. Do not present an empty result as "page 1 of 0".
+- Show loading feedback, an empty-state message, and a generic error announced
+  to assistive technology when a request fails. Keep the status selector usable
+  for empty results and errors; never display a raw error payload.
+- Keep controls mounted during requests. Loading must not unnecessarily disable
+  controls, disrupt keyboard operation, or lose focus mid-list. All controls
+  need associated labels or accessible names and AA-compliant contrast.
+- Cancel or ignore obsolete requests when the status or page changes or the view
+  unmounts. Stale success, error, and completion callbacks must not replace the
+  latest results, error, or loading state.
+- Read the optional browser-address page size as described below, without
+  relaxing the API's independent validation.
 
 ## Synthetic fixtures and page size
 
@@ -80,7 +123,8 @@ Extend the established test file rather than introducing a test framework.
 - Page one, later pages, and out-of-range pages behave correctly.
 - Empty matches return the defined empty response.
 - Invalid status, empty/repeated values, noninteger/zero/negative paging, and a
-  page size above 100 return a generic 400.
+  page size above 100 return the same generic 400; array/object inputs and other
+  malformed numbers are rejected too.
 - A page size of 100 is accepted.
 - Missing authentication returns 401 with the development fallback unset.
 - Two members never receive each other's claims or totals.

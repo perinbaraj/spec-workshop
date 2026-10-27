@@ -16,27 +16,26 @@ whether to proceed.
 | --- | --- | --- |
 | [Exercise 1: explore the app](steps/exercise-1-explore-the-app.md) | Run the starter and inspect the claims flow | Explain the current behavior and intended change; app stopped |
 | [Exercise 2: install and initialize](steps/exercise-2-install-and-initialize-spec-kit.md) | Verify/install tooling, initialize this project, and review project rules | Generated tooling and a reviewed constitution; app unchanged |
-| [Exercise 3: specification](steps/exercise-3-create-the-specification.md) | Adapt the reference into your feature specification | Reviewed `spec.md`, complete checklist, and known feature folder |
+| [Exercise 3: specification](steps/exercise-3-create-the-specification.md) | Generate your specification from the backlog and contract | Reviewed `spec.md`, complete checklist, and known feature folder |
 | [Exercise 4: plan and tasks](steps/exercise-4-create-the-plan-and-tasks.md) | Review the technical plan, then generate executable tasks | Consistent artifacts and test-first tasks; app unchanged |
 | [Exercise 5: implement and test](steps/exercise-5-implement-and-test.md) | Implement tasks, inspect changes, run checks, and review convergence | Actual check results; app running at `?pageSize=1` |
 | [Exercise 6: review and accept](steps/exercise-6-review-and-accept.md) | Customize the reviewer, evaluate findings, and check the browser | Browser evidence and an explicit human acceptance record |
 
 ## One guided route
 
-[Acceptance](acceptance.md) is the behavior contract.
-[Reference artifacts](reference/README.md) are inputs to supported Spec Kit
-generation, not files to copy into an arbitrary folder or automatic approval.
-The core uses `/speckit-specify` to establish the active feature and checklist,
-then `/speckit-plan` to create planning artifacts from the reviewed reference
-plan, then `/speckit-tasks` to generate executable work. Humans review each
-handoff. Independent blank-page specification/plan generation is an optional
-alternative, not a second required exercise.
+[Acceptance](acceptance.md) is the behavior contract. Begin with the backlog
+in Exercise 1, then use `/speckit-specify` to generate one feature specification
+and checklist from those requirements. Use `/speckit-plan` to plan the reviewed
+specification against the existing code, then `/speckit-tasks` to generate
+executable work from the approved plan. Humans review each handoff; there are
+no prewritten spec, plan, or task files to copy.
 
-Each detailed page labels terminal, Chat, editor, and browser actions, gives a
-completion check, and includes nondestructive recovery. Review changes through
+Each detailed page labels terminal, Chat, editor, and browser actions, gives
+expected outputs after actions, and ends with exit criteria. Review changes through
 VS Code Source Control and open new files in Explorer; you do not need Git
-terminal commands. If blocked, preserve your work and use the exercise's recovery with the
-facilitator. Do not skip tests, member isolation, pagination, review, or human
+terminal commands. If blocked, preserve your work and follow
+[recovery](prework.md#recovery-during-the-workshop) with the facilitator.
+Do not skip tests, member isolation, pagination, review, or human
 acceptance to catch up. A generated success message is not working evidence.
 
 No new packages, Redis service, database, external APIs, deployment, broad

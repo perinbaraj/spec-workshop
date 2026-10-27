@@ -3,91 +3,105 @@
 [Previous: Exercise 2](exercise-2-install-and-initialize-spec-kit.md) |
 [Workshop home](../README.md) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)
 
-## What you will do
+## Objective
 
-Use Spec Kit to turn the supplied reference into a specification for your change.
-A specification describes **what the feature must do**, not how to code it.
-Review it before generating an implementation plan.
+Turn the backlog and acceptance contract into a reviewed specification.
+The specification describes **what the feature must do**, not how to code it.
 
-## Before you start
+## Prerequisites
 
-Finish [Exercise 2](exercise-2-install-and-initialize-spec-kit.md): the skills
-are available and you have reviewed the constitution. Keep the app stopped.
+- Finish [Exercise 2](exercise-2-install-and-initialize-spec-kit.md): skills are
+  discoverable and the constitution is human-reviewed.
+- Keep the app stopped and stay on `main`.
+- Open [the acceptance contract](../acceptance.md).
 
-Two kinds of files matter here:
+## The Backlog Item
 
-- **Reference:** `workshops\reference\spec.md` is an example you read as input.
-- **Your feature folder:** Spec Kit will create a folder under `specs` for your
-  generated work. Use the exact folder it reports for Exercises 3-6.
+> As a signed-in member, I want to filter my claims by status and move through
+> the results so I can find relevant claims without seeing another member's data.
 
-Stay on `main`. The feature folder is not a Git branch.
+Generate the specification from this backlog and the contract, not a supplied
+solution. Spec Kit creates one folder under `specs` for your feature documents.
+Use its **exact reported folder** for Exercises 3–6; it is not a Git branch.
 
-## Do this
+## Step-by-step Instructions
 
-### 1. Editor: read the requirement and reference
+### Step 1: Read the behavior contract (Editor)
 
-Open [the acceptance contract](../acceptance.md) and
-[the reference specification](../reference/spec.md).
-Find the user stories, required behavior, exclusions, and success criteria.
-The acceptance contract is authoritative if an example disagrees.
+Read [the full contract](../acceptance.md), including API, UI, fixtures, and
+evidence requirements. Identify what is required and what is out of scope.
 
-Pay particular attention to member-scoped results/totals, the five statuses,
-page sizes, empty matches, and requests beyond the last page.
+**Expected output:** You can explain the five statuses, defaults, valid/invalid
+inputs, member-scoped totals, empty/out-of-range behavior, and the browser
+`?pageSize=1` demonstration. You are not choosing implementation details yet.
 
-### 2. Copilot Chat: generate your specification
+### Step 2: Generate one specification (Copilot Chat)
 
 In the normal implementation agent, select `/speckit-specify` and submit:
 
 ```text
 /speckit-specify
-Read workshops/reference/spec.md AND workshops/acceptance.md.
 As a signed-in member, I want to filter my claims by status and navigate
-the results without seeing another member's data.
-Adapt the reference into this project's specification, following the
-reviewed constitution and treating acceptance.md as the binding contract.
+the results so I can find relevant claims without seeing another member's data.
+Read workshops/acceptance.md as the binding behavior contract and follow
+the reviewed constitution. Generate a behavior-focused specification from
+this backlog and contract, not an implementation plan.
 Use the normal workflow to create ONE feature folder, its spec.md,
 requirements checklist, and active-feature state. Report their exact paths.
-Keep the spec behavior-focused; implementation design comes next.
-Do not copy reference navigation, example metadata, or placeholders.
+Include prioritized user stories, Given/When/Then acceptance scenarios,
+edge cases, measurable success criteria, assumptions, and exclusions.
+Privacy and input safety are prerequisites for every story, not deferred work.
 Stay on main; do not create or switch Git branches or add extensions.
 Do not implement, change application code or permissions, commit, or push.
 Report unresolved questions and assumptions for me to review.
 ```
 
-### 3. Editor: locate the generated files
+**Expected output:** One reported feature folder, `spec.md`, a requirements
+checklist, and active-feature state. The draft covers filtering, paging,
+privacy, and safe failure through testable scenarios; it is not code or an
+already-approved solution.
 
-In Explorer, expand `specs`, then the folder reported in Chat. Open:
+### Step 3: Locate your feature and checklist (Editor)
 
-| File | What you use it for |
+Expand `specs` in Explorer and open the exact folder reported in Chat:
+
+| File | Purpose |
 | --- | --- |
-| `spec.md` | Review the behavior you will build |
-| `checklists\requirements.md` | Check that the specification is clear and complete |
+| `spec.md` | The behavior you will review |
+| `checklists\requirements.md` | Evidence that the specification is clear and complete |
 
-Also open `.specify\feature.json`. Its `feature_directory` should point to this
-same folder. This small state file tells later skills where your work is;
-you do not need to edit it or switch branches.
+Open `.specify\feature.json` and compare its `feature_directory` with the
+reported folder.
 
-Keep the reported folder handy. Do not create another folder or manually copy
-the reference over it.
+**Expected output:** Both documents exist and the active state points to that
+same folder. Later skills can find your work without a branch change. Keep the
+path handy; do not guess a folder name, create another feature, or manually
+replace generated metadata.
 
-### 4. Editor: review and correct the specification
+### Step 4: Review the specification (Editor)
 
-Compare your generated `spec.md` with [the full contract](../acceptance.md).
-Confirm it covers:
+Compare `spec.md` against [the contract](../acceptance.md). Confirm it includes:
 
-- All statuses, defaults, valid/invalid inputs, empty matches, and paging limits.
-- Member isolation before filtering, counting, and slicing; stable fixture order.
-- Accessible controls, loading/error/empty states, reset to page one on a filter
-  change, and protection against stale responses.
-- The browser `?pageSize=1` demonstration using existing fixtures.
-- No unrelated features, packages, infrastructure, or PHI logs.
+- All five statuses, omitted-status behavior, default/max page sizes, and
+  generic rejection of invalid, empty, repeated, or malformed inputs.
+- Member isolation before filtering/counting/paging, accurate metadata, stable
+  fixture order, empty matches, and pages beyond the end without page adjustment.
+- Accessible labeled controls, boundary navigation, page-one reset, and loading,
+  generic announced-error, empty, and stale-response behavior.
+- The optional browser-address page size: valid 1–100, otherwise default 20,
+  without relaxing API validation or changing the existing fixtures.
+- Unchanged other routes/screens and explicit bounded exclusions: no refills,
+  appeals, writes, packages, storage, services, deployment, or broad refactoring.
+- Measurable success criteria that require actual checks and human acceptance,
+  not invented performance, accessibility, or test results.
 
-Correct omissions directly or ask the same session for a bounded revision.
-Do not change application code yet.
+**Expected output:** Clear user stories and Given/When/Then scenarios cover the
+whole contract. Correct omissions directly or request a bounded revision in the
+same chat. A story priority must never postpone privacy or validation.
 
-### 5. Chat if needed, then editor: resolve questions and finish the checklist
+### Step 5: Resolve questions if needed (Copilot Chat)
 
-Answer questions from the acceptance contract. If clarification is still needed:
+Answer from the contract. If a genuine ambiguity remains, submit:
 
 ```text
 /speckit-clarify
@@ -96,27 +110,36 @@ workshops/acceptance.md. Do not expand scope or implement.
 If the contract cannot answer a question, ask me rather than inventing behavior.
 ```
 
-Read `checklists\requirements.md`. A checked item must be supported by the
-specification; fix the spec before marking a missing requirement complete.
-Remove placeholders and unresolved `[NEEDS CLARIFICATION]` entries.
-If the contract cannot resolve a question, ask the facilitator before continuing.
+**Expected output:** Clarifications update the existing specification without
+creating another feature. If no questions remain, skip the skill. Escalate
+anything the contract cannot answer to the facilitator.
 
-## Check your result
+### Step 6: Complete the requirements review (Editor)
 
-You have one feature folder, a reviewed `spec.md`, a genuinely complete
-requirements checklist, and matching active-feature state. Application code
-is still unchanged.
+Read `checklists\requirements.md` against the corrected specification.
+Fix missing requirements before checking their items. Remove placeholders and
+unresolved `[NEEDS CLARIFICATION]` entries, and inspect Source Control.
 
-Continue to [Exercise 4: create the plan and tasks](exercise-4-create-the-plan-and-tasks.md).
+**Expected output:** Every completed checklist item is supported by the spec,
+the feature/state still agree, and only expected artifacts have changed.
+Application code remains unchanged. Approve the specification yourself before
+planning; a model's checked boxes are not approval.
 
-## If you get stuck
+## Exit Criteria
+
+- [ ] One feature folder and matching active-feature state exist.
+- [ ] You reviewed the spec against the entire acceptance contract.
+- [ ] Questions/placeholders are resolved and the requirements checklist is complete.
+- [ ] You approve the specification; application code is unchanged.
+
+## If You Get Stuck
 
 | Problem | What to do |
 | --- | --- |
-| Copilot ignored the reference | Ask the same session to revise the existing spec from both required documents. Do not create a second feature. |
-| Only `spec.md` exists | Ask the session to finish the normal scaffold and checklist for this same feature; use [reference recovery](../reference/README.md). |
-| The state points to another feature | Stop and ask the facilitator to reconcile the existing folder/state. Do not blindly overwrite state or switch branches. |
-| Questions introduce new requirements | Return to the contract and ask the facilitator. Do not add infrastructure or unrelated functionality to satisfy the draft. |
+| The spec omits contract behavior | Ask the same session to revise this feature from the backlog and contract. Do not create a second feature. |
+| Scaffold/checklist missing | Use the relevant skill to finish the same feature; see [workshop recovery](../prework.md#recovery-during-the-workshop). |
+| State points to another feature | Stop and ask the facilitator to reconcile folder/state; do not overwrite it blindly or switch branches. |
+| Questions add new requirements | Return to the contract and facilitator instead of expanding scope. |
 
 [Previous: Exercise 2](exercise-2-install-and-initialize-spec-kit.md) |
 [Workshop home](../README.md) | [Next: Exercise 4](exercise-4-create-the-plan-and-tasks.md)

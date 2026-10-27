@@ -6,9 +6,9 @@ VS Code with GitHub Copilot Chat.
 
 This repository's `main` branch intentionally contains neither generated Spec Kit
 scaffolding nor the claims-filter implementation. Learners initialize Spec Kit in
-the existing repository, create the constitution, review and adapt a reference
-specification and plan, generate tasks, implement the change, and decide whether
-to accept it.
+the existing repository, create project rules (the constitution), generate and
+review a specification and plan, generate tasks, implement the change, and decide
+whether to accept it.
 
 ## Start here
 
@@ -20,8 +20,9 @@ Explore the starter first, then run `specify init` yourself in Exercise 2.
 Already installed Spec Kit in prework? Skip that exercise's installation action,
 verify the command, and continue with initialization.
 
-Each guide tells you what to do in the terminal, Chat, editor, or browser, what
-result to inspect, and when to move on.
+Each guide has an objective, prerequisites, numbered instructions, expected
+outputs, and exit criteria. Actions identify whether to use the terminal,
+Copilot Chat, editor, or browser.
 
 | Exercise | Detailed participant guide | You finish with |
 | --- | --- | --- |
@@ -33,9 +34,10 @@ result to inspect, and when to move on.
 | 6 | [Review the change and decide whether to accept it](steps/exercise-6-review-and-accept.md) | Evaluated findings, browser evidence, and your decision |
 
 Keep the [behavior contract and acceptance checklist](acceptance.md) open beside
-your work. Use [guided reference artifacts and recovery](reference/README.md)
-throughout Exercises 3 and 4, not only when blocked. The [core roadmap](core.md)
-provides a compact view of the same journey.
+your work. It defines what to build; Spec Kit generates your feature documents
+from it and the existing code. If blocked, follow
+[recovery during the workshop](prework.md#recovery-during-the-workshop).
+The [core roadmap](core.md) provides a compact view of the same journey.
 
 ## Event boundary
 
@@ -45,10 +47,10 @@ and account troubleshooting are prework. The buffer is for recovery and finishin
 the same feature, not additional required exercises. This is a delivery target,
 not a claim that participant completion has been timed and validated.
 
-The default is guided adaptation of reference spec/plan material through Spec
-Kit. Independent blank-page generation is an optional alternative, not another
-required pass. Never cut tests, member isolation, pagination, review, or human
-acceptance to catch up. Facilitators use the [run of show](facilitator.md#run-of-show).
+Follow the copy-ready prompts in each exercise, then inspect the generated
+output before continuing. Never cut tests, member isolation, pagination, review,
+or human acceptance to catch up. Facilitators use the
+[run of show](facilitator.md#run-of-show).
 
 ## Follow-on work and facilitator resources
 
@@ -65,7 +67,7 @@ is not a condition of core completion.
 
 1. Inspect brownfield code and repository instructions.
 2. Initialize Spec Kit in place and establish project guardrails.
-3. Evaluate and adapt a specification and plan, then produce executable tasks.
+3. Generate and review a specification and plan, then produce executable tasks.
 4. Use bounded Copilot agent execution to implement and test those tasks.
 5. Customize one read-only reviewer agent.
 6. Evaluate evidence and make a human acceptance decision.

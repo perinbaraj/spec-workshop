@@ -1,34 +1,41 @@
-# Prework: prepare before the event
+# Prework: Prepare before the event
 
-Complete this before the core workshop. Installation and account troubleshooting
-are not part of the hands-on event.
+[Workshop home](README.md) | [Next: Exercise 1](steps/exercise-1-explore-the-app.md)
 
-## Required
+## Objective
+
+Prepare your own workshop clone, verify the unchanged starter, and install
+Spec Kit before the event. **Do not initialize Spec Kit yet**: you will do that
+yourself in Exercise 2.
+
+## Prerequisites
 
 - Node.js 22 LTS with npm, Git, and VS Code.
 - GitHub Copilot access in VS Code, signed in and able to use Chat agent tools.
 - PowerShell on Windows, or Bash on macOS/Linux.
-- Python 3.11+, uv, and Spec Kit's Specify CLI 1.2.3 (installation below).
-- A local clone of [`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)
-  (its default `main` branch).
-- Internet access for Copilot and for package installation (`npm ci`, Python tooling).
+- Python 3.11+ and internet access for Copilot and package installation.
 
-There is no Redis server, Docker, database, GitHub Actions setup, cloud account,
-or healthcare-service credential to configure.
-
-## 1. Clone the workshop repository and open VS Code
-
-Install missing prerequisites from their official sources:
-[Git](https://git-scm.com/downloads),
+Install missing prerequisites from [Git](https://git-scm.com/downloads),
 [Node.js](https://nodejs.org/en/download),
 [VS Code](https://code.visualstudio.com/download), and
-[Python](https://www.python.org/downloads/).
-Follow [uv installation](https://docs.astral.sh/uv/getting-started/installation/)
-for the Python tool manager. Verify
-[Copilot access in VS Code](https://code.visualstudio.com/docs/copilot/setup)
-before continuing.
+[Python](https://www.python.org/downloads/). Check
+[Copilot access](https://code.visualstudio.com/docs/copilot/setup) before the event.
+The uv and pinned Spec Kit installation steps are included below.
 
-In a terminal, choose a parent folder for your own clone, then run:
+You do not need Redis, Docker, a database, GitHub Actions, a cloud account, or
+healthcare-service credentials.
+
+## The Workshop Backlog
+
+You will add a status filter and pagination to the existing Claims view and API.
+Setup only prepares the starter; it does not implement this change.
+Use only the supplied synthetic members, never real member information.
+
+## Step-by-step Instructions
+
+### Step 1: Clone and open the correct repository (Terminal / Editor)
+
+In a terminal, choose a parent folder for your clone and run:
 
 ```text
 git clone https://github.com/perinbaraj/spec-workshop.git
@@ -36,27 +43,31 @@ cd spec-workshop
 code .
 ```
 
-Expected: VS Code opens the new `spec-workshop` folder containing `package.json`,
-`server`, `src`, and `workshops`. The branch indicator in VS Code's status bar
-should show `main`. Stay on it for all six exercises: no branch creation,
-checkpoint commits, or push is required. Git is needed to clone the starter,
-not as a separate exercise.
+**Expected output:** VS Code opens `spec-workshop` with `package.json`, `server`,
+`src`, and `workshops`. Its branch indicator shows `main`. Stay on `main` for all
+six exercises: do not create branches, make checkpoint commits, or push.
 
-If `code` is not on PATH, use VS Code's **File > Open Folder** to open that
-folder. Use **Terminal > New Terminal** for the remaining terminal commands.
+If `code` is not on PATH, use **File > Open Folder**. Open **Terminal > New
+Terminal** in that folder for the remaining commands.
 
-If a `spec-workshop` folder with your own local work already exists, do not reset
-or clean it. Clone into a new folder name instead
-(`git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-event`,
-then `cd spec-workshop-event`), or ask the facilitator to help preserve it. A copy
-cloned from any other URL is not a substitute for this repository.
-If cloning reports "repository not found" or an access error, check the URL
-character for character and your network or GitHub access, then tell the
-facilitator. Do not switch branches or discard existing work to repair setup.
+If a folder with your work already exists, preserve it. Choose a new clone name
+instead:
 
-## 2. Verify the starter
+```text
+git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-event
+cd spec-workshop-event
+code .
+```
 
-From the repository root:
+**Expected output:** A separate starter opens; your original files are untouched.
+Do not substitute a different repository URL. For an access error, check the URL
+and your network/GitHub access, then tell the facilitator.
+
+<a id="2-verify-the-starter"></a>
+
+### Step 2: Verify the starter (Terminal)
+
+From the folder containing `package.json`, run each command and read its output:
 
 ```text
 node --version
@@ -67,47 +78,58 @@ npm run typecheck
 npm run build
 ```
 
-Use `npm.cmd` instead of `npm` on Windows if your existing PowerShell policy
-blocks npm's `.ps1` shim; do not change execution policy for the workshop.
+**Expected output:** Node reports version 22, npm reports its version, dependencies
+install, and all three checks pass. The unchanged starter has six API smoke tests.
+Resolve a failed baseline with the facilitator before adding feature code.
 
-The first npm command on a fresh machine can take several minutes (for example
-while antivirus software scans `node_modules`). Run `npm ci` before the event,
-not during it.
+On Windows, use `npm.cmd` instead of `npm` throughout the workshop if PowerShell
+blocks the `.ps1` shim; do not change execution policy. The first dependency
+install can take several minutes, so complete it before the event.
 
-The baseline has six API smoke tests. The existing TypeScript configuration
-checks the backend; Vite transpiles the frontend but is not a full TSX typecheck.
-The original lint script references undeclared ESLint tooling, so lint is not an
-advertised workshop gate. Do not install extra tooling just to follow the guide.
+The configured typecheck covers the backend. Vite transpiles the frontend but
+does not provide a full TSX typecheck. The starter's lint script references
+undeclared tooling; lint is not a workshop gate. Do not install extra tooling.
 
-Then run:
+### Step 3: Run and inspect the app (Terminal / Browser)
+
+In the project terminal:
 
 ```text
 npm run dev
 ```
 
-Open `http://localhost:5173`, then Profile, Claims, and Prescriptions. Expected:
-all three views load; Claims has no filter yet. The Vite
-proxy forwards `/api` to the backend on port 3000. Use only the synthetic members
-provided by the starter. Do not copy real member information into the app.
+**Expected output:** Both the Express API on port 3000 and Vite on port 5173
+report readiness. Leave this terminal open while using the browser.
 
-After checking the app, press **Ctrl+C** in its terminal to stop the development
-processes you started. Always stop them before `npm test`: the tests start an
-API listener, so another process on port 3000 can cause a conflict.
+Open `http://localhost:5173` and visit Profile, Claims, and Prescriptions.
 
-## 3. Install and verify Spec Kit
+**Expected output:** All three views load using synthetic data. Claims has no
+status filter or pagination controls yet. Vite proxies `/api` to the backend.
 
-Spec Kit is the toolkit, `specify-cli` is the package you install, and `specify`
-is the command you run. Installation makes the command available; it does not
-initialize this project.
+### Step 4: Stop the app (Terminal)
 
-Check Python 3.11+ with `python --version` on Windows or `python3 --version` on
-macOS/Linux. Then check uv:
+Press **Ctrl+C** in the development terminal you started.
+
+**Expected output:** Your development processes stop and the terminal accepts
+commands again. Always stop them before `npm test`: the tests start an API
+listener and can conflict with a running development API on port 3000.
+
+<a id="3-install-and-verify-spec-kit"></a>
+
+### Step 5: Install and verify Spec Kit (Terminal)
+
+Spec Kit is the toolkit, `specify-cli` is the package, and `specify` is the
+terminal command. Installing the command does not initialize this project.
+
+Check Python with `python --version` on Windows or `python3 --version` on
+macOS/Linux, then run:
 
 ```text
 uv --version
 ```
 
-If uv is missing, choose the command for your platform:
+**Expected output:** Python reports 3.11 or later and uv reports its version.
+If uv is missing, choose only your platform's installation command.
 
 **Windows PowerShell:**
 
@@ -121,70 +143,94 @@ winget install --id=astral-sh.uv -e
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Save your work, close and reopen VS Code and this folder, and create a new
-terminal to receive the updated PATH. Run `uv --version` again.
-If these commands are unavailable or blocked, use the facilitator and
-[official uv alternatives](https://docs.astral.sh/uv/getting-started/installation/)
-without changing security settings.
+**Expected output:** uv installs. Save your work, close and reopen VS Code and
+this folder, and open a new terminal to receive the updated PATH.
 
-Install the pinned Spec Kit version, then verify it:
+Run:
 
 ```text
+uv --version
 uv tool install specify-cli==1.2.3
 specify version
 specify init --help
 ```
 
-Expected: version `1.2.3`, and help containing `--here`, `--integration`, and
-`--script`. Do not upgrade during the event. Windows participants will normally
-use Python helpers (`--script py`); macOS/Linux participants use Bash
-(`--script sh`). Exercise 2 also documents the permitted PowerShell alternative.
+**Expected output:** uv is available, Specify reports `1.2.3`, and init help
+contains `--here`, `--integration`, and `--script`. Do not upgrade during the
+workshop. Windows normally uses Python helpers; macOS/Linux uses Bash helpers.
+Exercise 2 includes the permitted PowerShell alternative.
 
-| Installation problem | Recovery |
+**Stop here: do not run `specify init` yet.** No `.specify` folder or generated
+`/speckit-...` skills is expected before Exercise 2.
+
+| Installation problem | What to do |
 | --- | --- |
+| uv installation unavailable or blocked | Use the [official alternatives](https://docs.astral.sh/uv/getting-started/installation/) with the facilitator; do not change security settings. |
 | `specify` not found after install | Run `uv tool update-shell`, then close and reopen VS Code and its terminal. |
-| An older uv-managed version is installed | Run `uv tool install --force specify-cli==1.2.3`, then verify again. If another installer owns it, ask the facilitator to resolve that copy instead of installing a conflicting second one. |
-| TLS, certificate, proxy, or package-version error | Ask for the organization's approved package index or a facilitator-supplied wheel. The supported forms are `uv tool install --default-index <approved-index-url> specify-cli==1.2.3` or `uv tool install <path-to-wheel>`. Replace placeholders with approved values; do not disable TLS verification. |
+| An older uv-managed version is installed | Run `uv tool install --force specify-cli==1.2.3`, then verify again. This replaces the installed tool, not project files. If another installer owns it, ask the facilitator rather than installing a conflicting copy. |
+| TLS, certificate, proxy, or package-version error | Use an organization-approved source with the facilitator: `uv tool install --default-index <approved-index-url> specify-cli==1.2.3` or `uv tool install <path-to-wheel>`. Replace placeholders with approved values; do not disable TLS verification. |
 
-**Stop after verification; do not run `specify init` in this checkout yet.**
-You will run it yourself in
-[Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md), after exploring
-the app in [Exercise 1](steps/exercise-1-explore-the-app.md).
-No `.specify` folder or generated `/speckit-...` skills is expected before then.
-Resolve installation/account problems before the event; initialization remains
-the live exercise.
+### Step 6: Verify the custom reviewer (Editor / Copilot Chat)
 
-## 4. Verify the custom reviewer
+Open `.github\agents\workshop-reviewer.agent.md`. In VS Code Chat, select
+**workshop-reviewer** from the agent picker with the Copilot harness selected.
+Do not run a feature review yet.
 
-Open `.github\agents\workshop-reviewer.agent.md`, then select
-**workshop-reviewer** in VS Code Chat's agent picker. If it does not appear,
-confirm you opened the repository root, saved the file, and selected the Copilot
-harness. Use VS Code's customization diagnostics/reload only as needed.
+**Expected output:** The reviewer is selectable and its profile allows only
+`read` and `search`. Keep that boundary: the normal implementation session
+executes commands and fixes code.
 
-See the [reviewer profile](../.github/agents/workshop-reviewer.agent.md) and
-[VS Code custom-agent documentation](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-if discovery is blocked. The profile allows read/search tools only. Keep that
-boundary; command execution belongs to the normal implementation session.
+If discovery fails, confirm the repository root and saved profile, then use
+customization diagnostics or reload as needed. See the
+[reviewer profile](../.github/agents/workshop-reviewer.agent.md) and
+[custom-agent documentation](https://code.visualstudio.com/docs/copilot/customization/custom-agents).
 
-## Ready for the live workshop
+## Exit Criteria
 
-Your clone of `perinbaraj/spec-workshop` is on `main`, the app runs locally,
-baseline checks work, `specify version` prints `1.2.3`, and the reviewer can be
-selected. The app is stopped and the repository is still uninitialized
-for Spec Kit. Tell the facilitator about a setup blocker before the event.
+- [ ] Your clone is from `perinbaraj/spec-workshop` and remains on `main`.
+- [ ] The starter runs and baseline test, typecheck, and build pass.
+- [ ] Specify reports `1.2.3`; the reviewer is selectable and read-only.
+- [ ] The app is stopped and Spec Kit has **not** been initialized here.
 
-When the core workshop begins, follow these steps in order:
+Tell the facilitator about blockers before the event. Start with
+[Exercise 1](steps/exercise-1-explore-the-app.md), then run initialization
+yourself in [Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md).
 
-1. Open the [workshop home](README.md) and keep this page available for setup
-   recovery.
-2. Complete [Exercise 1: explore the app](steps/exercise-1-explore-the-app.md) without
-   initializing Spec Kit or changing feature code.
-3. Open [Exercise 2: install and initialize Spec Kit](steps/exercise-2-install-and-initialize-spec-kit.md).
-   Since installation is already complete, go to its verification action,
-   then run the single initialization command for your platform yourself.
+## Recovery during the workshop
 
-If blocked during the workshop, use [reference recovery](reference/README.md)
-without discarding your work.
+1. **Preserve your current files.** Keep the checkout and actual error output.
+   Do not reset, clean, delete generated work, or overwrite someone else's work.
+2. **Repair the same feature.** Read the reviewed constitution, your generated
+   artifacts, and [the acceptance contract](acceptance.md). In the normal
+   implementation chat, use the relevant `/speckit-specify`,
+   `/speckit-clarify`, `/speckit-plan`, or `/speckit-tasks` skill to repair the
+   **existing** feature and missing scaffold/supporting files. State its exact
+   reported folder. Review the repair before proceeding; do not create a second
+   feature or copy incomplete files as a shortcut.
+3. **Escalate when uncertain.** Give the facilitator your OS, failing command or
+   skill, exact error, active feature path, and current checkpoint. Missing
+   initialization, partial output, or conflicting active-feature state needs
+   inspection, not a forced rerun or weakened permissions.
+4. **Use a separate clone only if needed.** Keep the original untouched. Open a
+   terminal in its **parent directory**, not inside the original checkout:
 
-**Next:** [Exercise 1: explore the app](steps/exercise-1-explore-the-app.md) |
-[Workshop home](README.md)
+   ```text
+   git clone https://github.com/perinbaraj/spec-workshop.git spec-workshop-recovery
+   cd spec-workshop-recovery
+   code .
+   ```
+
+   **Expected output:** A separate unfinished starter opens on `main`; the
+   original checkout is preserved. If that recovery folder already exists,
+   ask the facilitator for a fresh name instead of overwriting it.
+
+   Repeat [starter verification](#2-verify-the-starter), then
+   [Exercise 1](steps/exercise-1-explore-the-app.md) and
+   [Exercise 2](steps/exercise-2-install-and-initialize-spec-kit.md) there.
+   The installed CLI can be reused after verification; the new checkout still
+   needs its own initialization and reviewed constitution. Generate and review
+   the new feature artifacts before resuming implementation.
+5. **Keep secrets and member data out.** Do not copy tokens, environment files,
+   or real member data into the recovery checkout.
+
+[Workshop home](README.md) | [Next: Exercise 1](steps/exercise-1-explore-the-app.md)

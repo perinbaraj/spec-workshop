@@ -40,10 +40,11 @@ labs for tools, agent teams, appeals, deployment, or infrastructure during the c
   Unicode error on Windows; 1.2.3 fixes this, which is why the guide pins 1.2.3.
   The macOS/Linux `--script sh` flavour has not been rehearsed.
 - Run the exact initialize/constitution/specify/plan/tasks/implement/converge flow.
-  For specify and plan, use the reference-grounded prompts in
+  For specify and plan, use the requirements-driven prompts in
   [Exercise 3](steps/exercise-3-create-the-specification.md) and
-  [Exercise 4](steps/exercise-4-create-the-plan-and-tasks.md), not
-  independent blank-page generation. Confirm active scaffolding, ancillary
+  [Exercise 4](steps/exercise-4-create-the-plan-and-tasks.md). Generate from the
+  backlog, acceptance contract, constitution, and existing code, without a
+  supplied answer key. Confirm active scaffolding, ancillary
   planning artifacts, and an executable task checklist are created.
   The default Copilot layout uses `/speckit-...` skills, not older dotted prompts.
 - Have participants generate and review the constitution against existing
@@ -62,9 +63,10 @@ labs for tools, agent teams, appeals, deployment, or infrastructure during the c
 
 An environment check, the requirement/acceptance contract, initialization
 commands, a constitution prompt, copy-ready feature prompts, and the reviewer
-template. [Reference artifacts](reference/README.md) are the default starting
-material for guided specification and planning, and also support recovery.
-Participants still review and adapt them; adopting an example is not approval.
+template. The numbered participant guides include expected outputs and exit
+criteria. Participants generate their own specification, plan, and tasks;
+there is no reference-directory prerequisite or supplied solution to copy.
+Keep [recovery instructions](prework.md#recovery-during-the-workshop) available.
 
 Use `main` in [perinbaraj/spec-workshop](https://github.com/perinbaraj/spec-workshop)
 as the shared baseline. Learners stay on `main` in their own clones for all six
@@ -97,19 +99,23 @@ claim. Validate delivery with representative participants before promising it.
 | Exercise 5 | [Implement and test](steps/exercise-5-implement-and-test.md) | Actual check/convergence results; app restarted for review |
 | Exercise 6 | [Review and accept](steps/exercise-6-review-and-accept.md) | Current evidence supplied to reviewer; findings and browser checks recorded |
 | Wrap-up | [Acceptance record](acceptance.md#human-acceptance-record) | Accepted or not accepted, with reasons |
-| Buffer if needed | [Nondestructive recovery](reference/README.md#nondestructive-recovery) | Resolve blockers without skipping evidence |
+| Buffer if needed | [Recovery during the workshop](prework.md#recovery-during-the-workshop) | Resolve blockers without skipping evidence |
 
 Recovery boundaries:
 
-- After Exercise 4, everyone needs an active `tasks.md`; use the reference breakdown
-  through the guided workflow if tasks are missing or overly broad.
+- After Exercise 3, everyone needs one feature folder, a reviewed specification,
+  and a complete requirements checklist. Resolve missing behavior from acceptance,
+  not from an invented requirement or a second generated feature.
+- After Exercise 4, everyone needs an active `tasks.md`. If tasks are missing or
+  overly broad, return to that feature's approved plan and ask `/speckit-tasks`
+  to repair the list with concrete paths, dependencies, and test-first checks.
 - After Exercise 5, test, typecheck, and build must pass. Otherwise help or pair the
   participant; do not skip ahead and report acceptance.
-- At any blocked checkpoint, preserve the current files, consult the matching
-  reference, and review the reconciliation. Do not discard work or force a
-  failed checklist to proceed.
-- Independent spec/plan generation is an optional alternative outside the
-  guided core, not a second required pass or a buffer assignment.
+- At any blocked checkpoint, preserve the current files, identify the missing
+  output in the exercise's exit criteria, and repair the same feature with its
+  relevant skill. Review the repair against acceptance before proceeding.
+  Do not discard work, force a failed checklist to proceed, or copy a partial
+  artifact into a new feature folder as a shortcut.
 
 Agenda coverage: AIDLC and Spec-Driven Development (overview, Exercises 2-4);
 requirement, specification, plan, and tasks (Exercises 3-4); custom agents (Exercise 6
@@ -118,12 +124,12 @@ review, and human validation (Exercises 5-6).
 
 ## Delivery rules
 
-At each checkpoint ask participants to inspect one concrete output. If someone
-is blocked, use the corresponding reference artifact rather than adding an
-entire explanatory side lab.
+At each checkpoint ask participants to inspect the expected output and exit
+criteria in their guide. If someone is blocked, pair with them on the current
+step and contract rather than adding an entire explanatory side lab.
 
-If scope pressure appears, shorten optional explanations or use a reviewed
-reference artifact. Do not remove tests, member-isolation requirements,
+If scope pressure appears, shorten optional explanations or pair on a bounded
+revision of the generated artifact. Do not remove tests, member-isolation requirements,
 pagination, review, or human acceptance.
 
 Keep installation troubleshooting in prework. Exercise 2 repeats install-if-needed
@@ -154,9 +160,18 @@ agent picker, real model-driven chat and latency, a person performing the browse
 checks, screen readers, macOS/Linux, or the optional workshops' implementations.
 Treat the run of show as unvalidated until a timed run in VS Code is complete.
 
-The simplified, main-only exercise instructions need a fresh participant
-rehearsal. Earlier sandbox results are not evidence that the new instructions,
-VS Code change review, or reviewer-context handoff have been rehearsed.
+The lab-style, main-only instructions and generation-from-requirements route
+need a fresh participant rehearsal. Earlier sandbox results are not evidence
+that these prompts, VS Code change review, reviewer-context handoff, or completion
+duration have been rehearsed.
+
+An earlier documentation check found local `specify version` reporting
+`0.9.4.dev0`, not the pinned 1.2.3. An isolated 1.2.3 package run failed downloading
+metadata with a TLS handshake error; no TLS or execution-policy bypass was used.
+A successful documentation check does not resolve that package-access issue or
+prove fresh initialization works. Confirm the approved package source and pinned
+version in a separate disposable checkout before advertising this route as
+validated.
 
 ## Optional boundary
 
