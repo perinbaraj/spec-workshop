@@ -12,7 +12,7 @@ The specification describes **what the feature must do**, not how to code it.
 
 - Finish [Exercise 2](exercise-2-install-and-initialize-spec-kit.md): skills are
   discoverable and the constitution is human-reviewed.
-- Keep the app stopped and stay on `main`.
+- Keep the app stopped.
 - Open [the acceptance contract](../acceptance.md).
 
 ## The Backlog Item
@@ -22,7 +22,7 @@ The specification describes **what the feature must do**, not how to code it.
 
 Generate the specification from this backlog and the contract, not a supplied
 solution. Spec Kit creates one folder under `specs` for your feature documents.
-Use its **exact reported folder** for Exercises 3–6; it is not a Git branch.
+Use its **exact reported folder** for Exercises 3–6.
 
 ## Step-by-step Instructions
 
@@ -51,8 +51,8 @@ requirements checklist, and active-feature state. Report their exact paths.
 Include prioritized user stories, Given/When/Then acceptance scenarios,
 edge cases, measurable success criteria, assumptions, and exclusions.
 Privacy and input safety are prerequisites for every story, not deferred work.
-Stay on main; do not create or switch Git branches or add extensions.
-Do not implement, change application code or permissions, commit, or push.
+Do not add extensions, implement, change application code or permissions,
+commit, or push.
 Report unresolved questions and assumptions for me to review.
 ```
 
@@ -74,7 +74,7 @@ Open `.specify\feature.json` and compare its `feature_directory` with the
 reported folder.
 
 **Expected output:** Both documents exist and the active state points to that
-same folder. Later skills can find your work without a branch change. Keep the
+same folder. Later skills can find your work from the active state. Keep the
 path handy; do not guess a folder name, create another feature, or manually
 replace generated metadata.
 
@@ -138,7 +138,7 @@ planning; a model's checked boxes are not approval.
 | --- | --- |
 | The spec omits contract behavior | Ask the same session to revise this feature from the backlog and contract. Do not create a second feature. |
 | Scaffold/checklist missing | Use the relevant skill to finish the same feature; see [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop). |
-| State points to another feature | Stop and ask the facilitator to reconcile folder/state; do not overwrite it blindly or switch branches. |
+| State points to another feature | Stop and ask the facilitator to reconcile folder/state; do not overwrite it blindly. |
 | Questions add new requirements | Return to the contract and facilitator instead of expanding scope. |
 
 [Previous: Exercise 2](exercise-2-install-and-initialize-spec-kit.md) |

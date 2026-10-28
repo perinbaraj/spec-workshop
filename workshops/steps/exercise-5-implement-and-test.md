@@ -13,7 +13,7 @@ run the existing checks, and prepare the app for human review.
 - Finish [Exercise 4](exercise-4-create-the-plan-and-tasks.md).
 - The same feature folder contains human-reviewed specification/planning files,
   a complete requirements checklist, and approved executable test-first tasks.
-- Stay on `main`; keep [the acceptance contract](../acceptance.md) available.
+- Keep [the acceptance contract](../acceptance.md) available.
 
 ## The Backlog Item
 
@@ -44,7 +44,6 @@ Run focused tests before their implementation and record expected
 new-contract failures, then implement and rerun. Report exact commands
 and actual results. Repair failures caused by this change;
 state any checks not run. Keep normal tool approvals.
-Stay on main; do not create or switch branches.
 Do not expand scope, implement optional workshops, modify package/ignore/
 configuration files, change permissions, weaken checks, commit, or push.
 Do not perform or tick human browser/reviewer/acceptance work.

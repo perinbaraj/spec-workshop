@@ -12,7 +12,7 @@ Review the plan **before** generating executable tasks. Do not implement yet.
 
 - Finish [Exercise 3](exercise-3-create-the-specification.md), including human
   specification approval and its completed requirements checklist.
-- Use the same reported feature folder, stay on `main`, and keep the app stopped.
+- Use the same reported feature folder and keep the app stopped.
 - Keep [the acceptance contract](../acceptance.md) available.
 
 ## The Backlog Item
@@ -59,9 +59,8 @@ quickstart.md in this feature folder. Report their exact paths.
 Include test-first API coverage using pageSize=1, actual automated checks,
 and a separate human browser/reviewer/acceptance handoff.
 Do not invent results or add packages, services, storage, deployment,
-or broad refactors. Stay on main; do not create or switch branches.
-Generate planning artifacts only; do not implement, change permissions,
-commit, or push.
+or broad refactors. Generate planning artifacts only; do not implement,
+change permissions, commit, or push.
 ```
 
 **Expected output:** A technical plan grounded in your reviewed requirements and
@@ -121,8 +120,7 @@ Do not add setup already satisfied, dependencies, or fixture changes.
 Keep human browser checks, reviewer customization/finding decisions,
 scope approval, and final acceptance OUT of executable checkbox tasks.
 Describe those as the separate Exercise 6 handoff.
-Generate tasks only. Stay on main; do not create or switch branches,
-implement, change permissions, commit, or push.
+Generate tasks only. Do not implement, change permissions, commit, or push.
 ```
 
 **Expected output:** An executable `tasks.md` derived from the reviewed plan,
@@ -160,7 +158,7 @@ changed. Correct the list before approving implementation.
 
 | Problem | What to do |
 | --- | --- |
-| A skill cannot find the feature | Check the reported folder/state from Exercise 3; use [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop), not a new feature or branch. |
+| A skill cannot find the feature | Check the reported folder/state from Exercise 3; use [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop), not a new feature. |
 | Supporting files missing | Ask the same planning skill/session to finish this feature before generating tasks. |
 | Tasks lack checkboxes/paths or put tests last | Ask `/speckit-tasks` to correct this list before implementation. |
 | The plan adds packages or infrastructure | Reject the expansion and revise against the existing code and contract. |

@@ -1,12 +1,12 @@
-# Member Portal — Spec-driven workshop
+# Prescription Dashboard — Spec-driven workshop
 
-A hands-on Spec Kit workshop using an existing healthcare member portal
+A hands-on Spec Kit workshop using an existing prescription dashboard
 (Express API + React frontend).
 
 **One requirement, one implementation, one review.** Add claims status filtering
-and pagination to the existing app, not a replacement portal.
+and pagination to the existing app, not a replacement dashboard.
 
-The `main` branch of this repository
+This repository
 ([`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)) is an
 **unfinished learner starter**: it has neither generated Spec Kit scaffolding
 nor the claims-filter implementation.
@@ -14,21 +14,17 @@ nor the claims-filter implementation.
 ## Start here
 
 Begin with [Exercise 0: set up your workshop environment](workshops/steps/exercise-0-setup.md)
-before the event. It covers cloning, tool installation, and starter verification.
-Then follow Exercises 1-6 in order using your own clone. Stay on `main`; no branch
-creation, checkpoint commits, or pushes are required.
-
-You will run `specify init` yourself in Exercise 2, **not** Exercise 0.
-If you installed Spec Kit in Exercise 0, skip Exercise 2's install-if-needed
-step, verify the command, and continue with initialization.
+before the event. It covers cloning, starter readiness, and reviewer verification.
+Then follow Exercises 1-6 in order using your own clone. No checkpoint commits
+or pushes are required.
 
 ## Workshop roadmap
 
 | Exercise | What you do | Check before moving on |
 | --- | --- | --- |
-| [0: Set up your environment](workshops/steps/exercise-0-setup.md) | Clone, install tools, and verify the starter | Baseline checks pass; Spec Kit installed but not initialized; app stopped |
+| [0: Set up your environment](workshops/steps/exercise-0-setup.md) | Clone and verify the starter and reviewer | Baseline checks pass; reviewer available; app stopped |
 | [1: Explore the app](workshops/steps/exercise-1-explore-the-app.md) | Run the starter and trace the claims flow | Explain the current behavior and change boundary; app stopped |
-| [2: Install and initialize Spec Kit](workshops/steps/exercise-2-install-and-initialize-spec-kit.md) | Initialize this project and create project rules | Generated tooling and a reviewed constitution; app unchanged |
+| [2: Install and initialize Spec Kit](workshops/steps/exercise-2-install-and-initialize-spec-kit.md) | Install Spec Kit, initialize this project, and create project rules | Generated tooling and a reviewed constitution; app unchanged |
 | [3: Create the specification](workshops/steps/exercise-3-create-the-specification.md) | Generate and review the required behavior | One feature folder, reviewed `spec.md`, and complete requirements checklist |
 | [4: Create the plan and tasks](workshops/steps/exercise-4-create-the-plan-and-tasks.md) | Approve the technical plan, then generate tasks | Consistent planning artifacts and executable, test-first tasks; app unchanged |
 | [5: Implement and test](workshops/steps/exercise-5-implement-and-test.md) | Implement tasks, inspect changes, run checks, and review convergence | Actual check results; app running at `?pageSize=1` |

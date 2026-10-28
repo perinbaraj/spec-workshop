@@ -5,15 +5,19 @@
 
 ## Objective
 
-Initialize Spec Kit yourself in the existing project and create a reviewed
-constitution: the project rules Copilot will follow. This does not implement
-the claims feature.
+Install and initialize Spec Kit in the existing project, then create a reviewed
+constitution: the project rules Copilot will follow. This does not implement the
+claims feature.
 
 ## Prerequisites
 
 - Finish [Exercise 1](exercise-1-explore-the-app.md); keep the app stopped.
-- Open your own project on `main`, in the folder containing `package.json`.
+- Open your own project in the folder containing `package.json`.
 - Use **Terminal > New Terminal** for terminal commands, not Copilot Chat.
+- Python 3.11+ and uv. Install them from the
+  [Python downloads](https://www.python.org/downloads/) and
+  [official uv installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+  if needed.
 
 Spec Kit is the toolkit; `specify-cli` is its package; `specify` is the terminal
 command. The `/speckit-...` Chat skills become available after initialization.
@@ -25,96 +29,54 @@ Use [the acceptance contract](../acceptance.md), not a new feature scope.
 
 ## Step-by-step Instructions
 
-### Step 1: Install the tools if needed (Terminal)
+### Step 1: Install Spec Kit (Terminal)
 
-**Already installed during Exercise 0? Skip this step and go to Step 2.**
-Otherwise complete this installation before running any `specify` command.
-
-Check Python with `python --version` on Windows or `python3 --version` on
-macOS/Linux. Install [Python](https://www.python.org/downloads/) if missing.
-Then run:
+Confirm Python reports 3.11 or later and uv is available:
 
 ```text
+python --version
 uv --version
+uv tool install specify-cli
 ```
 
-**Expected output:** Python reports 3.11 or later and uv reports its version.
-If uv is missing, choose **one** installation command for your platform.
+On macOS/Linux, use `python3 --version` if `python` is unavailable.
 
-**Windows PowerShell:**
-
-```powershell
-winget install --id=astral-sh.uv -e
-```
-
-**macOS/Linux:**
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-**Expected output:** uv installs. Save your work, close and reopen VS Code and
-this folder, and open a new terminal for the updated PATH.
-
-Run:
-
-```text
-uv --version
-uv tool install specify-cli==1.2.3
-```
-
-**Expected output:** uv is available and the pinned Specify CLI installs.
+**Expected output:** Python and uv report their versions and the current Specify
+CLI release installs.
 If blocked, use the [official uv alternatives](https://docs.astral.sh/uv/getting-started/installation/)
-and [installation recovery](exercise-0-setup.md#install-and-verify-spec-kit) with the
-facilitator. Do not bypass security settings or disable TLS verification.
+with the facilitator. For a certificate, proxy, or package-source restriction,
+use an organization-approved index or wheel; do not bypass security settings or
+disable TLS verification.
 
-### Step 2: Verify the pinned command (Terminal)
+### Step 2: Verify the command (Terminal)
 
 ```text
 specify version
-specify init --help
 ```
 
-**Expected output:** Version `1.2.3`, with `--here`, `--integration`, and
-`--script` in init help. Do not upgrade during the workshop.
+**Expected output:** Specify reports its installed version.
 
 If the command is missing, run `uv tool update-shell`, then reopen VS Code and
-its terminal. If the version is wrong, use
-[installation recovery](exercise-0-setup.md#install-and-verify-spec-kit); do not
-keep conflicting installations.
+its terminal so the updated PATH is loaded. Do not install a conflicting copy
+through another package manager.
 
 ### Step 3: Initialize this project once (Terminal)
 
 Confirm the terminal is at the project root. If `.specify` already exists,
 inspect it with the facilitator and resume that setup instead of initializing
-over it. Otherwise choose **exactly one** command:
-
-**Windows: Python helpers** (no PowerShell policy change needed):
+over it. Otherwise run once:
 
 ```text
-specify init --here --integration copilot --script py
-```
-
-**macOS/Linux: Bash helpers:**
-
-```text
-specify init --here --integration copilot --script sh
-```
-
-**Windows alternative:** only if the facilitator confirms PowerShell scripts
-are permitted, use this **instead of** the Python command:
-
-```text
-specify init --here --integration copilot --script ps
+specify init --here --force --integration copilot
 ```
 
 `--here` uses this folder; `--integration copilot` installs Copilot integration;
-`--script` selects helper scripts for your platform. Read the non-empty-folder
-merge warning and enter `y` **yourself**. Do not add `--force`.
+and `--force` intentionally permits initialization in this existing non-empty
+project. The CLI defaults select the helper-script type for your platform.
 
 **Expected output:** Spec Kit merges its tooling into the existing project.
-It does not create another app or require a new Git branch. If you see
-`Operation cancelled`, verify files before assuming initialization succeeded.
+It does not create another app. If the command fails or is interrupted, inspect
+existing and partially generated files before rerunning it.
 
 ### Step 4: Inspect the generated tooling (Editor)
 
@@ -142,7 +104,6 @@ route input validation, generic errors, no PHI logging, accessible controls,
 focused tests, actual test/build evidence, and human acceptance.
 No new packages, services, Redis, database, deployment, or broad refactoring.
 Keep normal tool approvals and the workshop reviewer's read/search-only tools.
-Stay on main; do not create or switch branches.
 Generate the constitution only; do not modify application code or shared
 Copilot instructions, commit, or push. Report the generated file paths.
 Do not invent performance, accessibility, or test results.
@@ -164,18 +125,18 @@ Only expected tooling/rules artifacts have changed, not application code.
 
 ## Exit Criteria
 
-- [ ] Specify reports `1.2.3`; you ran one platform initialization yourself.
+- [ ] Specify reports its version; you initialized this existing project once.
 - [ ] The generated helpers and Chat skills exist and are discoverable.
-- [ ] You reviewed the constitution and related tooling changes.
-- [ ] Application code is unchanged and the app remains stopped on `main`.
+- [ ] You reviewed all generated changes, the constitution, and related tooling.
+- [ ] Application code is unchanged and the app remains stopped.
 
 ## If You Get Stuck
 
 | Problem | What to do |
 | --- | --- |
-| Package, certificate, or proxy error | Use [installation recovery](exercise-0-setup.md#install-and-verify-spec-kit) and the approved source; do not disable TLS verification. |
-| `Operation cancelled` and no artifacts | Rerun only the same chosen init command interactively and answer its prompt. Preserve partial output and ask before rerunning over it. |
-| PowerShell helpers blocked | Do not change policy. Before initialization choose Python; after partial initialization preserve files and ask the facilitator. |
+| Package, certificate, or proxy error | Use an organization-approved index or wheel with the facilitator; do not disable TLS verification. |
+| Initialization fails or is interrupted | Preserve output, inspect `.specify` and the generated diff, then ask the facilitator before rerunning the same command. |
+| Platform helper is blocked | Do not weaken security settings. Preserve generated files and ask the facilitator to inspect the selected platform helper. |
 | Skills missing in Chat | Confirm project root and generated `SKILL.md` files, save, and use **Developer: Reload Window** if needed. Do not substitute obsolete command syntax. |
 | Unexpected application/configuration changes | Inspect and use [workshop recovery](exercise-0-setup.md#recovery-during-the-workshop), not reset/clean. |
 

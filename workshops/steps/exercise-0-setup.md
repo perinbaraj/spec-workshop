@@ -6,22 +6,19 @@
 ## Objective
 
 Complete this setup exercise before the event: prepare your own clone, verify
-the unchanged starter, and install Spec Kit. **Do not initialize Spec Kit yet**:
-you will do that yourself in Exercise 2.
+the unchanged starter, and verify the custom reviewer.
 
 ## Prerequisites
 
 - Node.js 22 LTS with npm, Git, and VS Code.
 - GitHub Copilot access in VS Code, signed in and able to use Chat agent tools.
 - PowerShell on Windows, or Bash on macOS/Linux.
-- Python 3.11+ and internet access for Copilot and package installation.
+- Internet access for Copilot and npm package installation.
 
 Install missing prerequisites from [Git](https://git-scm.com/downloads),
 [Node.js](https://nodejs.org/en/download),
-[VS Code](https://code.visualstudio.com/download), and
-[Python](https://www.python.org/downloads/). Check
+[VS Code](https://code.visualstudio.com/download). Check
 [Copilot access](https://code.visualstudio.com/docs/copilot/setup) before the event.
-The uv and pinned Spec Kit installation steps are included below.
 
 You do not need Redis, Docker, a database, GitHub Actions, a cloud account, or
 healthcare-service credentials.
@@ -45,8 +42,7 @@ code .
 ```
 
 **Expected output:** VS Code opens `spec-workshop` with `package.json`, `server`,
-`src`, and `workshops`. Its branch indicator shows `main`. Stay on `main`
-throughout Exercises 0-6: do not create branches, make checkpoint commits, or push.
+`src`, and `workshops`. Do not make checkpoint commits or push.
 
 If `code` is not on PATH, use **File > Open Folder**. Open **Terminal > New
 Terminal** in that folder for the remaining commands.
@@ -115,63 +111,7 @@ Press **Ctrl+C** in the development terminal you started.
 commands again. Always stop them before `npm test`: the tests start an API
 listener and can conflict with a running development API on port 3000.
 
-<a id="install-and-verify-spec-kit"></a>
-
-### Step 5: Install and verify Spec Kit (Terminal)
-
-Spec Kit is the toolkit, `specify-cli` is the package, and `specify` is the
-terminal command. Installing the command does not initialize this project.
-
-Check Python with `python --version` on Windows or `python3 --version` on
-macOS/Linux, then run:
-
-```text
-uv --version
-```
-
-**Expected output:** Python reports 3.11 or later and uv reports its version.
-If uv is missing, choose only your platform's installation command.
-
-**Windows PowerShell:**
-
-```powershell
-winget install --id=astral-sh.uv -e
-```
-
-**macOS/Linux:**
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-**Expected output:** uv installs. Save your work, close and reopen VS Code and
-this folder, and open a new terminal to receive the updated PATH.
-
-Run:
-
-```text
-uv --version
-uv tool install specify-cli==1.2.3
-specify version
-specify init --help
-```
-
-**Expected output:** uv is available, Specify reports `1.2.3`, and init help
-contains `--here`, `--integration`, and `--script`. Do not upgrade during the
-workshop. Windows normally uses Python helpers; macOS/Linux uses Bash helpers.
-Exercise 2 includes the permitted PowerShell alternative.
-
-**Stop here: do not run `specify init` yet.** No `.specify` folder or generated
-`/speckit-...` skills is expected before Exercise 2.
-
-| Installation problem | What to do |
-| --- | --- |
-| uv installation unavailable or blocked | Use the [official alternatives](https://docs.astral.sh/uv/getting-started/installation/) with the facilitator; do not change security settings. |
-| `specify` not found after install | Run `uv tool update-shell`, then close and reopen VS Code and its terminal. |
-| An older uv-managed version is installed | Run `uv tool install --force specify-cli==1.2.3`, then verify again. This replaces the installed tool, not project files. If another installer owns it, ask the facilitator rather than installing a conflicting copy. |
-| TLS, certificate, proxy, or package-version error | Use an organization-approved source with the facilitator: `uv tool install --default-index <approved-index-url> specify-cli==1.2.3` or `uv tool install <path-to-wheel>`. Replace placeholders with approved values; do not disable TLS verification. |
-
-### Step 6: Verify the custom reviewer (Editor / Copilot Chat)
+### Step 5: Verify the custom reviewer (Editor / Copilot Chat)
 
 Open `.github\agents\workshop-reviewer.agent.md`. In VS Code Chat, select
 **workshop-reviewer** from the agent picker with the Copilot harness selected.
@@ -188,14 +128,13 @@ customization diagnostics or reload as needed. See the
 
 ## Exit Criteria
 
-- [ ] Your clone is from `perinbaraj/spec-workshop` and remains on `main`.
+- [ ] Your clone is from `perinbaraj/spec-workshop`.
 - [ ] The starter runs and baseline test, typecheck, and build pass.
-- [ ] Specify reports `1.2.3`; the reviewer is selectable and read-only.
-- [ ] The app is stopped and Spec Kit has **not** been initialized here.
+- [ ] The reviewer is selectable and read-only.
+- [ ] The app is stopped.
 
 Tell the facilitator about blockers before the event. When all exit criteria
 are met, continue to [Exercise 1](exercise-1-explore-the-app.md).
-Initialization still happens in [Exercise 2](exercise-2-install-and-initialize-spec-kit.md).
 
 ## Recovery during the workshop
 
@@ -221,16 +160,15 @@ Initialization still happens in [Exercise 2](exercise-2-install-and-initialize-s
    code .
    ```
 
-   **Expected output:** A separate unfinished starter opens on `main`; the
-   original checkout is preserved. If that recovery folder already exists,
+   **Expected output:** A separate unfinished starter opens and the original
+   checkout is preserved. If that recovery folder already exists,
    ask the facilitator for a fresh name instead of overwriting it.
 
    Repeat [starter verification](#verify-the-starter), then
    [Exercise 1](exercise-1-explore-the-app.md) and
    [Exercise 2](exercise-2-install-and-initialize-spec-kit.md) there.
-   The installed CLI can be reused after verification; the new checkout still
-   needs its own initialization and reviewed constitution. Generate and review
-   the new feature artifacts before resuming implementation.
+   The new checkout still needs its own Spec Kit setup and reviewed constitution.
+   Generate and review the new feature artifacts before resuming implementation.
 5. **Keep secrets and member data out.** Do not copy tokens, environment files,
    or real member data into the recovery checkout.
 

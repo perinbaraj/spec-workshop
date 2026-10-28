@@ -22,7 +22,7 @@ export const App: React.FC = () => {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Member Portal</h1>
+        <h1>Prescription Dashboard</h1>
         <nav className="app-nav">
           <button
             className={`nav-button ${currentView === 'profile' ? 'active' : ''}`}
@@ -93,7 +93,7 @@ export const App: React.FC = () => {
       </main>
 
       <footer className="app-footer">
-        <p>Member Portal • Lab Starter</p>
+        <p>Prescription Dashboard</p>
       </footer>
     </div>
   );

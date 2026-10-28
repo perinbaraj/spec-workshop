@@ -1,15 +1,15 @@
-# Copilot Instructions — Member Portal
+# Copilot Instructions — Prescription Dashboard
 
-These instructions are for the entire member portal codebase, not just the workshop exercises.
+These instructions are for the entire prescription dashboard codebase, not just the workshop exercises.
 
 ## Project Context
-This is a full-stack healthcare member portal with a Node.js + Express BFF backend and a React 18 + TypeScript frontend. The portal handles member self-service operations: viewing prescriptions, requesting refills, checking claims, managing appointments, and prior authorizations.
+This is a full-stack healthcare prescription dashboard with a Node.js + Express BFF backend and a React 18 + TypeScript frontend. The dashboard handles member self-service operations: viewing prescriptions, requesting refills, checking claims, managing appointments, and prior authorizations.
 
 ## Architecture
 **Backend (BFF):**
 - **Runtime:** Node.js 20+ with Express
 - **Language:** TypeScript (strict mode)
-- **Auth:** OIDC session via existing member-portal identity provider (stubbed in labs with `x-member-id` header)
+- **Auth:** OIDC session via existing prescription-dashboard identity provider (stubbed in labs with `x-member-id` header)
 - **Downstream services:** pharmacy-service, claims-service, scheduling-service (REST APIs, OAuth 2.0)
 - **Cache:** Redis for idempotency keys and session data (ioredis installed; wired per-route in labs)
 

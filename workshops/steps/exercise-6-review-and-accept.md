@@ -10,7 +10,7 @@ checks, and record your own acceptance decision.
 
 ## Prerequisites
 
-- Finish [Exercise 5](exercise-5-implement-and-test.md) on `main`.
+- Finish [Exercise 5](exercise-5-implement-and-test.md).
 - Keep the checked app running at `http://localhost:5173/?pageSize=1`.
 - Have the exact feature folder and actual final test/typecheck/build output ready.
 
@@ -112,7 +112,7 @@ Stop your development terminal with **Ctrl+C** before any API tests, then submit
 Apply only the reviewer findings I explicitly accepted.
 Keep the change within the same approved claims-filter feature.
 Do not apply rejected suggestions, broaden scope, change permissions or
-package/configuration files, create or switch branches, commit, or push.
+package/configuration files, commit, or push.
 Add/run focused regression tests before the affected implementation where
 applicable. Run affected checks and report exact commands and actual results.
 Do not perform or mark human browser acceptance or the final decision.

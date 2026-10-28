@@ -6,13 +6,13 @@
 ## Objective
 
 Trace the existing claims flow and explain the one change you will build.
-Do not edit application code or initialize Spec Kit in this exercise.
+Do not edit application code in this exercise.
 
 ## Prerequisites
 
 - Complete [Exercise 0](exercise-0-setup.md); open your own `spec-workshop` clone in VS Code.
 - Confirm Explorer shows `package.json`, `server`, `src`, and `workshops`.
-- Stay on `main` throughout the workshop: no branch creation, commits, or push.
+- Do not commit or push workshop changes.
 - Keep [the acceptance contract](../acceptance.md) available.
 
 ## The Backlog Item
@@ -75,7 +75,7 @@ Explain how authentication, member-scoped data, GET /api/claims, the typed
 HTTP client, ClaimsList, and the existing tests fit together.
 List the files needed for the claims status filter and pagination change.
 Separate existing behavior from the behavior we still need to build.
-Do not edit files, install tools, initialize Spec Kit, commit, or push.
+Do not edit files, install tools, commit, or push.
 ```
 
 **Expected output:** An explanation with source-file references, not edits.
@@ -99,13 +99,13 @@ own words before continuing.
 Press **Ctrl+C** in the development terminal you started.
 
 **Expected output:** Your development processes stop. No feature code has
-changed, and the starter is ready for live Spec Kit initialization.
+changed, and the starter is ready for Exercise 2.
 
 ## Exit Criteria
 
 - [ ] You can explain the current API-to-client-to-view flow.
 - [ ] You can distinguish the backlog from existing behavior.
-- [ ] Application code is unchanged; Spec Kit is not initialized yet.
+- [ ] Application code is unchanged.
 - [ ] Your development server is stopped.
 
 ## If You Get Stuck
