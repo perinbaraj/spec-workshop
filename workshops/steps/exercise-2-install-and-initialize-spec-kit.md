@@ -67,12 +67,8 @@ inspect it with the facilitator and resume that setup instead of initializing
 over it. Otherwise run once:
 
 ```text
-specify init --here --force --integration copilot
+specify init . --integration copilot
 ```
-
-`--here` uses this folder; `--integration copilot` installs Copilot integration;
-and `--force` intentionally permits initialization in this existing non-empty
-project. The CLI defaults select the helper-script type for your platform.
 
 **Expected output:** Spec Kit merges its tooling into the existing project.
 It does not create another app. If the command fails or is interrupted, inspect
