@@ -1,59 +1,38 @@
-# Copilot Instructions — Prescription Dashboard
+# Copilot instructions — browser-only prescription workshop
 
-These instructions are for the entire prescription dashboard codebase, not just the workshop exercises.
+This is a synthetic educational demo, not a healthcare service. There is no
+real server, authentication, authorization, privacy or security boundary, or
+HIPAA guarantee. Browser users can inspect or modify all fixtures and state.
+Never use real health data, credentials, or secrets in code, prompts, output,
+logs, or artifacts. Member scoping is an educational behavior invariant, not
+protection against a user controlling the browser.
 
-## Project Context
-This is a full-stack healthcare prescription dashboard with a Node.js + Express BFF backend and a React 18 + TypeScript frontend. The dashboard handles member self-service operations: viewing prescriptions, requesting refills, checking claims, managing appointments, and prior authorizations.
+Use plain HTML, CSS and browser JavaScript with relative assets and classic
+scripts in the existing load order. Preserve direct `file://` operation for
+`index.html` and `tests\index.html`, including paths with spaces. Do not add a
+server, build step, packages, remote resources, browser storage, or helper CLI.
+Keep existing fixtures and unrelated behavior. Render data as text with native
+DOM APIs rather than injecting untrusted HTML. Keep service methods
+asynchronous and surface generic simulated errors without logging sensitive
+details or raw payloads.
 
-## Architecture
-**Backend (BFF):**
-- **Runtime:** Node.js 20+ with Express
-- **Language:** TypeScript (strict mode)
-- **Auth:** OIDC session via existing prescription-dashboard identity provider (stubbed in labs with `x-member-id` header)
-- **Downstream services:** pharmacy-service, claims-service, scheduling-service (REST APIs, OAuth 2.0)
-- **Cache:** Redis for idempotency keys and session data (ioredis installed; wired per-route in labs)
+The current service holds the selected member in memory via
+`memberService.getMemberId()` and `setMemberId()`; `getClaims()` currently
+resolves to `{ claims }`. Follow `workshops\acceptance.md` for the one unfinished
+claims-filter/pagination feature: validate inputs, scope to the current simulated
+member before filtering, counting, and slicing, and preserve result order.
+Do not treat simulated service error categories as HTTP status codes.
 
-**Frontend (SPA):**
-- **Framework:** React 18 with TypeScript
-- **Bundler:** Vite
-- **API Client:** Centralized service layer with typed fetch wrappers
-- **Authentication:** Stores `x-member-id` in localStorage, includes in all API requests
-- **Location:** `./src/` directory, runs on localhost:5173 in dev
+Use semantic HTML, labels and accessible names, keyboard-operable controls,
+announced generic errors, usable focus and WCAG 2.1 AA contrast. Protect the
+current view against stale success, error and completion callbacks when
+requests, members or views change. Preserve loading, empty and error states.
 
-## Mandatory Rules
-
-### HIPAA Compliance
-- NEVER log PHI (Protected Health Information): names, DOB, SSN, diagnosis codes, medication names
-- Log member IDs only in hashed form in production
-- All error messages must be generic — never expose internal data
-- All endpoints must enforce member-context isolation (member A cannot see member B's data)
-
-### Security
-- Validate all inputs with Zod schemas at the route level
-- Use parameterized queries (no string concatenation for data access)
-- Return 403 for cross-member access attempts; log a security event (no PHI in log)
-- All responses include security headers via Helmet
-
-### Code Style
-- **Backend:** Target pattern is one route file per domain (members, claims, prescriptions, appointments). The starter code begins with a monolithic `server/server.ts` — labs progressively refactor into `server/routes/` files.
-- Service layer abstracts external API calls (create under `server/services/`)
-- All async operations use try/catch with typed error handling
-- Tests required for happy path + auth failure + edge cases per endpoint
-- **Frontend:** One component file per feature (MemberProfile, PrescriptionsList, etc.)
-- Centralized API service layer (`src/services/httpClient.ts`) for all HTTP calls
-- All API methods use typed fetch wrappers matching backend response shapes
-- Components use React hooks (useState, useEffect) for state and side effects
-- CSS co-located with components or in global `App.css` with CSS variables
-
-### Performance
-- p95 API latency target: 500ms
-- Use Redis idempotency keys for mutation endpoints (POST, PUT, DELETE)
-- Pagination required for list endpoints (default: 20, max: 100)
-- Frontend: p95 time-to-interactive < 2s, bundle size < 200KB gzipped
-
-### Frontend Accessibility (WCAG 2.1 AA)
-- All buttons and links must have accessible labels
-- Use semantic HTML (not just `<div>` + CSS)
-- Color contrasts must meet AA standards
-- Form inputs must have associated `<label>` elements
-- Error messages must be announced to screen readers
+Read `.specify\README.md` and the checked-in skill instructions for the
+human-reviewed workflow. Require real test-first evidence: write browser
+assertions and observe the expected feature-contract failures before each
+implementation slice, then rerun and report actual output. If unable to observe
+the browser, pause for participant-supplied output; do not fabricate results.
+Human browser inspection, read-only review decisions and acceptance are separate.
+Respect tool approvals and existing changes; no unrequested branch, commit or
+push. The bundled skills are workshop adaptations, not the upstream CLI.

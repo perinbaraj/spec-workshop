@@ -1,203 +1,179 @@
 # Core feature contract and acceptance
 
-This is the requirement boundary, not a prewritten implementation.
+This binding requirement defines the learner's unfinished feature, not a
+prewritten implementation. Use it during [specification](steps/exercise-3-create-the-specification.md),
+[planning](steps/exercise-4-create-the-plan-and-tasks.md),
+[implementation](steps/exercise-5-implement-and-test.md) and
+[human review](steps/exercise-6-review-and-accept.md).
 
-Read this contract during [Exercise 3: specification](steps/exercise-3-create-the-specification.md) and
-[Exercise 4: planning](steps/exercise-4-create-the-plan-and-tasks.md). Return for automated evidence in
-[Exercise 5](steps/exercise-5-implement-and-test.md) and human checks in
-[Exercise 6](steps/exercise-6-review-and-accept.md). Generated artifacts, completed
-implementation tasks, or a clean agent review do not themselves accept the feature.
+## Need and boundaries
 
-## Member need and scope
+As a simulated member, filter my claims by status and page through matching
+results so I can find relevant synthetic records without mixing member contexts.
+Extend the existing Claims view and local service only. Preserve Profile,
+Prescriptions, claim detail behavior, other screens, fixtures and fixture order.
+No new dependency, server, storage, external service, mutation, refill, appeal
+submission, deployment, or broad refactor is in scope.
 
-**Backlog item:** As a signed-in member, I want to filter my claims by status and
-move through the results so I can find relevant claims without seeing another
-member's data.
+**Synthetic data only.** This browser-only simulation has no real server,
+authentication, authorization, privacy or security boundary, or HIPAA
+guarantee. Anyone can inspect and change shipped fixtures and state. Member
+scoping is an educational behavior invariant, not a security guarantee.
+Never use real health data, credentials or sensitive details in artifacts.
 
-Extend the existing Claims view and claims-list API only. Members can select one
-status or return to all statuses, navigate matching claims, and see their current
-page and matching totals. Privacy, validation, and accessible, resilient states
-apply to the whole feature, not a later optional slice.
+## Local service contract
 
-Out of scope: refills, submitting appeals, any data-writing operation, new
-storage or persistence, Redis or other infrastructure, external services,
-deployment or hosted workflows, new dependencies, and broad refactoring.
-Preserve all unrelated routes and screens, including claim detail, Profile,
-and Prescriptions. Reuse the existing synthetic fixtures; do not add mocks,
-change fixtures, or add data exports to make pagination visible.
+Today `memberService.getClaims()` is asynchronous and resolves to `{ claims }`;
+it has no filtering, pagination or metadata. The current simulated member is
+held in memory by `getMemberId()`/`setMemberId()`; refresh resets it to
+`M-10001`. Preserve zero-argument compatibility while extending `getClaims`.
 
-## API contract
+Define `getClaims(options)` so `options`, when supplied, is a
+`URLSearchParams` instance containing `status`, `page`, and/or `pageSize`.
+This representation retains repeated keys for validation; callers must not
+collapse values with `get()` before validation. Only omission of the argument
+or an empty `URLSearchParams` means all defaults. Reject explicitly supplied
+`undefined`, `null`, arrays, plain objects and other types, as well as unknown
+keys (including a member selector). Do not stringify/coerce objects or arrays
+into acceptable values. A key supplied more than once is invalid even if the
+values agree.
 
-Extend `GET /api/claims` with:
-
-| Input | Behavior |
+| Input | Meaning |
 | --- | --- |
-| `status` omitted | All statuses for the current member |
-| `status` supplied | One of `submitted`, `in_review`, `approved`, `denied`, `appealed` |
-| `page` omitted | Page 1 |
-| `pageSize` omitted | 20 items |
-| Explicit paging | Positive integers; maximum page size 100 |
-| Invalid status or paging | Generic 400; do not silently clamp or coerce malformed input |
+| `status` omitted | All statuses of the current member |
+| `status` once | Exactly `submitted`, `in_review`, `approved`, `denied`, or `appealed` |
+| `page` omitted | 1 |
+| `pageSize` omitted | 20 |
+| `page` or `pageSize` once | Canonical positive decimal integer, safe in JavaScript; `pageSize` at most 100 |
 
-The "All statuses" UI option omits `status`; it does not send `status=all`.
-Reject empty or repeated values rather than accepting an arbitrary first value.
-Arrays, objects, malformed numbers, unknown statuses, and out-of-range page sizes
-are invalid. Defaults apply only when the corresponding input is omitted.
-All invalid-input cases return the same generic 400 message, without internal
-details or adjusted results.
+The UI's All statuses option omits `status`; `status=all` is invalid. Reject
+empty values, whitespace, signs, zero, negative numbers, leading zeroes,
+fractions, exponent notation, non-finite/unsafe integers, malformed or repeated
+values, unknown statuses and page sizes over 100. Defaults apply only to
+omitted keys. All invalid inputs reject the promise with the same generic
+message and a simulated `INVALID_INPUT` category; they are **not HTTP responses
+or status codes**. Preserve the existing generic message
+`The requested action is unavailable.` and existing `MISSING_MEMBER` behavior
+for an absent simulated context. Do not return or log raw input or internal
+details. Tests should verify categories and generic messages, not invent HTTP
+status codes.
 
-Preserve `claims` and add:
+Obtain the current simulated member before selecting records. Scope to that
+member **before** status filtering, counting, or slicing; filter, count the
+same collection, and slice in stable fixture order. Do not add any way to
+select a member through options. Preserve `claims` and add exactly this
+pagination shape with effective values:
 
 ```json
 {
   "claims": [],
-  "pagination": {
-    "page": 1,
-    "pageSize": 20,
-    "total": 0,
-    "totalPages": 0
-  }
+  "pagination": { "page": 1, "pageSize": 20, "total": 0, "totalPages": 0 }
 }
 ```
 
-Derive the member from the existing authentication middleware. Apply member
-scoping before status filtering, counting, or slicing. Filter the scoped claims,
-calculate totals from that same collection, then paginate in stable fixture
-order. `totalPages` is the ceiling of `total / pageSize`; retain the requested
-`page` and effective `pageSize` in the metadata.
+`totalPages` is `Math.ceil(total / pageSize)`. No matches resolve with empty
+claims and zero totals. A page beyond the last resolves with empty claims but
+retains requested `page`, `pageSize`, actual `total` and `totalPages`; never
+silently clamp. Keep existing service methods and consumers working.
 
-No matching claims returns 200 with an empty list and zero totals. A page beyond
-the last page also returns 200 and an empty list, but retains the actual total
-and totalPages. Do not silently move to another page.
+## Claims view
 
-Missing authentication remains 401 when `DEV_MEMBER_ID` is not configured.
-This list feature has no foreign-member selector. Do not add a query parameter
-that lets a caller choose another member, and do not refactor the unrelated
-claim-detail route. Do not log member details, diagnoses, medications, or
-request/response bodies.
+- A labeled status selector starts at All statuses and includes all five
+  statuses. A status change resets to page 1. Show matching total, current page
+  and total pages; do not render an empty result as “page 1 of 0”.
+- Previous and Next move one page and are unavailable at boundaries and for
+  empty results. Keep the selector usable on empty results and errors.
+- Provide loading feedback, an empty message and a generic error announced to
+  assistive technology. Never display raw rejection details. Keep controls
+  mounted and usable during reads, preserving keyboard focus where possible.
+- Use semantic labels and accessible names, keyboard operation and AA contrast.
+  If a boundary disables the currently focused native button, deliberately
+  manage focus or document the limitation.
+- Guard stale success, error **and completion** callbacks when status, page,
+  member or active view changes. Old requests must not replace the current
+  results, error or loading state, including after leaving and returning.
 
-## Claims view requirements
+## Fixtures and address override
 
-- Start on page one with a labeled status selector defaulting to All statuses.
-  Offer all five supported statuses. A status change returns to page one.
-- Show the current page, total matching claims, and total pages alongside the
-  results. Previous and Next move to adjacent pages and are unavailable at their
-  boundaries or for empty results. Do not present an empty result as "page 1 of 0".
-- Show loading feedback, an empty-state message, and a generic error announced
-  to assistive technology when a request fails. Keep the status selector usable
-  for empty results and errors; never display a raw error payload.
-- Keep controls mounted during requests. Loading must not unnecessarily disable
-  controls, disrupt keyboard operation, or lose focus mid-list. All controls
-  need associated labels or accessible names and AA-compliant contrast.
-- Cancel or ignore obsolete requests when the status or page changes or the view
-  unmounts. Stale success, error, and completion callbacks must not replace the
-  latest results, error, or loading state.
-- Read the optional browser-address page size as described below, without
-  relaxing the API's independent validation.
+Do not change fixtures or exports to create more pages:
 
-## Synthetic fixtures and page size
-
-The starter's synthetic claims are enough; no mocking, fixture changes, or new
-exports from `server\data.ts` are needed.
-
-| Member | Claims (status) |
+| Member | Claims in order |
 | --- | --- |
 | M-10001 | CLM-50001 (approved), CLM-50002 (in_review) |
 | M-10002 | CLM-50003 (denied) |
 | M-10003 | CLM-50004 (submitted) |
 
-No member has more than two claims, so the default page size of 20 never shows a
-second page. In API tests use `pageSize=1`: M-10001 then has two pages. For the
-browser, the claims view also reads an optional `pageSize` from the page address,
-for example `http://localhost:5173/?pageSize=1`. A whole number from 1 to 100 is
-sent to the API as the page size; anything else is ignored and the default of 20
-applies. The API still validates `pageSize` exactly as described above.
+The view may read an optional `pageSize` from its browser address for the
+two-page demonstration. An exactly once-supplied canonical integer 1–100 is
+forwarded to the service; invalid, empty, repeated or malformed address values
+are ignored and use the default 20. This forgiving address rule does not relax
+the independent service validation. For example, on Windows open the actual
+file URL, such as `file:///C:/Users/Example/My%20Workshop/index.html?pageSize=1`;
+use your own path and encode spaces as `%20`. The browser's address bar can
+construct the native file URL when `index.html` is opened directly.
 
-## Focused API evidence
+## Required automated evidence
 
-Extend the established test file rather than introducing a test framework.
+Extend `tests\browser.test.js` using the existing harness and run
+`tests\index.html` directly in a browser, with actual output captured. Add and
+run focused assertions **before** each implementation slice; observe expected
+failures specifically caused by missing feature behavior, implement, then
+rerun. If Copilot cannot observe the browser, it must pause for the participant
+to run the page and supply real output. Syntax/setup/unrelated failures and
+unobserved results are blockers, not test-first proof.
 
-- Default response retains `claims` and includes correct metadata.
-- Each supported status returns only matching claims.
-- Combined status/paging uses filtered totals and correct page slices.
-- Page one, later pages, and out-of-range pages behave correctly.
-- Empty matches return the defined empty response.
-- Invalid status, empty/repeated values, noninteger/zero/negative paging, and a
-  page size above 100 return the same generic 400; array/object inputs and other
-  malformed numbers are rejected too.
-- A page size of 100 is accepted.
-- Missing authentication returns 401 with the development fallback unset.
-- Two members never receive each other's claims or totals.
+Place new assertions before the existing `registrationComplete("baseline")`
+call. If adding a separate test script, declare its unique
+`data-test-suite` on the script in `tests\index.html` and call
+`registrationComplete` with the same name at the end of that script. A
+missing registration or script error must fail the overall run, not count as
+an expected feature failure.
 
-Use the existing synthetic fixtures and `pageSize=1` (see above). If you change a
-fixture or a mock, restore it after each test so existing tests are not
-contaminated.
+Cover zero-argument/default compatibility and exact metadata; every supported
+status including the empty `appealed` case; combined filters and paging;
+`pageSize=1` first/later/out-of-range pages; empty matches and totals; 100
+accepted and 101 rejected; empty/repeated/unknown fields and invalid types,
+malformed/unsafe numbers, omitted-only defaults, and consistent generic
+rejections. Verify missing context, scoped results and totals across members,
+fixture order and existing regression assertions. Use controlled deferred
+promises to assert request-generation handling of stale successes, errors and
+completion, including member changes and leaving/returning to the view. Extend
+the direct-file test page as needed to exercise the view; do not assume the
+baseline service-only test page already loads it. Restore each temporary stub
+after its test, even on failure. Do not add dependencies or permanently modify
+fixtures. Rerun the full browser assertion page after final changes and report
+its visible summary.
 
-## Browser evidence
+## Participant browser checks
 
-These checks are performed and recorded by the participant, not checked off by
-the implementation agent in `tasks.md`. An unresolved requirement means the
-feature is not accepted, even if the event or its buffer has ended.
+These are separate from automated tasks and must be performed and recorded by
+the participant. Open the app directly at its file URL with `?pageSize=1`.
 
-Run the app with `npm run dev` and open `http://localhost:5173/?pageSize=1`.
-Switching member reloads the page and returns to Profile, so click Claims again
-after each switch. Perform these checks:
-
-1. Open Claims. A labeled status selector defaults to All statuses.
-2. Select a status; only matching claims appear and navigation resets to page one.
-3. Select a status with no results; an empty message appears and the filter stays
-   available so you can return to All statuses.
-4. Exercise Previous/Next. As M-10001 with all statuses, page 1 of 2 shows
-   CLM-50001, Next shows CLM-50002, and Previous returns. Boundary and
-   empty-result navigation is disabled correctly. Without `?pageSize=`, both
-   claims appear on one page.
-5. Change filters rapidly; an older request cannot overwrite newer results.
-   Browser throttling cannot reliably reorder responses, so verify this by code
-   inspection: the effect must cancel or ignore the previous request when the
-   status or page changes (for example with an `AbortController` or a stale-result
-   guard). Optionally ask the implementation agent for a temporary, clearly marked
-   delay for one status in the API, switch quickly between that status and
-   another, confirm the newer result stays, then remove the delay and rerun the
-   tests.
-6. Confirm loading feedback and an announced, generic error when a request fails.
-   Force a failure with DevTools (Network > Offline), or run `npm run dev:api` and
-   `npm run dev:ui` in two terminals instead of `npm run dev` and stop only the
-   API. The message must be generic and announced to assistive technology (for
-   example `role="alert"`), and the status selector must stay usable. Restore the
-   network or restart the API afterwards.
-7. Operate controls by keyboard and verify associated labels and usable contrast.
-   After you activate Next or Previous from the keyboard, focus must stay on a
-   usable control and not be lost mid-list because the buttons were disabled while
-   loading. Known limitation: a natively `disabled` button you activate at the
-   first or last page cannot keep focus, so focus falls to the page body. Record
-   that under Known limitations unless you choose `aria-disabled` or move focus
-   deliberately.
-8. Switch synthetic members; compare results and totals without mixing contexts
-   (M-10001: CLM-50001 and CLM-50002; M-10002: CLM-50003; M-10003: CLM-50004).
-9. Revisit Profile and Prescriptions; their existing behavior remains unchanged.
-
-### Starter quirks that are not part of this change
-
-- The header button reads `Member: M-10001` after every reload, even when another
-  member is active, and the app returns to Profile. Identify the member by the
-  claims shown. Do not fix this in the claims-filter change.
-- The starter `.error` style (red text on pink) is about 3.4:1, below the 4.5:1 AA
-  threshold, and Profile and Prescriptions share it. If your new error message
-  reuses `.error`, override the colour only inside the claims view, for example
-  `.claims-list .error { color: #842029; }` (about 7:1). Do not change `.error`
-  globally.
-
-Run `npm test`, `npm run typecheck`, and `npm run build`. Use lint only if the
-facilitator has established a working lint configuration; the original starter
-declares a lint script without its required tooling.
-
-The existing typecheck covers the backend. Vite build is not a full frontend
-TypeScript check. Do not present either as proof that every TSX type was checked.
+1. In Claims inspect the labeled selector, all statuses, page-one reset,
+   matching totals, empty state and ability to return to All statuses.
+2. With M-10001 and All statuses, page 1 of 2 shows CLM-50001; Next shows
+   CLM-50002; Previous returns. Check boundaries and empty results. Without
+   the override both claims fit on one page. Invalid address values use 20.
+3. Switch members while Claims is active: it remains the active view and
+   rerenders. Confirm M-10002 has CLM-50003 and M-10003 has CLM-50004 with
+   their own totals. Refresh resets to M-10001 and Profile. Revisit Profile
+   and Prescriptions and verify unchanged behavior.
+4. Verify stale response protection by inspecting request-generation/lifecycle
+   guards and, if practical, deliberately delaying an older local service read
+   while switching filter, page, member or view. An old success, failure, or
+   completion must not overwrite the latest result, error or loading state.
+5. To observe loading and failure, make a **temporary, clearly marked** local
+   `getClaims` stub that delays settlement and can reject with a generic
+   simulated error. Observe loading, usable controls, and an announced generic
+   error. Browser Network Offline cannot fail an in-memory service. Restore
+   the exact original service after each experiment, remove all stubs/delays,
+   and rerun the full browser assertions on the final code.
+6. Operate controls with the keyboard; inspect labels, visible focus, announced
+   error, and readable AA contrast. Record any unresolved limitation.
 
 ## Human acceptance record
 
-Record a brief summary in `acceptance.md` inside your generated feature folder,
-not in this shared contract:
+The participant writes `acceptance.md` in the active feature folder:
 
 ```text
 Requirement:
@@ -209,7 +185,8 @@ Known limitations:
 Decision: accepted / not accepted
 ```
 
-Do not publish member data or screenshots containing real health information.
+Generated artifacts, passed assertions or a clean reviewer report do not alone
+accept the feature. An unresolved requirement means not accepted.
 
-[Back to Exercise 6: review and acceptance](steps/exercise-6-review-and-accept.md) |
+[Exercise 6](steps/exercise-6-review-and-accept.md) |
 [Workshop home](../README.md#start-here)

@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Prescription Dashboard</title>
+    <link rel="stylesheet" href="src/App.css">
+    <script defer src="src/data.js"></script>
+    <script defer src="src/services/memberService.js"></script>
+    <script defer src="src/App.js"></script>
+    <script defer src="src/components/MemberProfile.js"></script>
+    <script defer src="src/components/ClaimsList.js"></script>
+    <script defer src="src/components/PrescriptionsList.js"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="app">
+      <header class="app-header">
+        <h1>Prescription Dashboard</h1>
+        <p class="notice">Synthetic data for education only. This local demo has no real authentication, security, or privacy protection. Never use real health data or credentials.</p>
+        <nav class="app-nav" aria-label="Dashboard views">
+          <button type="button" class="nav-button active" data-view="profile" aria-pressed="true">Profile</button>
+          <button type="button" class="nav-button" data-view="prescriptions" aria-pressed="false">Prescriptions</button>
+          <button type="button" class="nav-button" data-view="claims" aria-pressed="false">Claims</button>
+        </nav>
+        <form id="member-form" class="member-selector">
+          <label for="member-select">Simulated member</label>
+          <select id="member-select">
+            <option value="M-10001">M-10001</option>
+            <option value="M-10002">M-10002</option>
+            <option value="M-10003">M-10003</option>
+            <option value="" disabled>Custom member</option>
+          </select>
+          <label for="custom-member">Custom member ID</label>
+          <input id="custom-member" type="text" autocomplete="off">
+          <button type="submit">Use member ID</button>
+          <span id="member-error" class="form-error" role="alert"></span>
+        </form>
+      </header>
+      <main id="app-main" class="app-main" aria-live="polite" aria-busy="false"></main>
+      <footer class="app-footer">Prescription Dashboard</footer>
+    </div>
   </body>
 </html>

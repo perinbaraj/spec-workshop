@@ -1,144 +1,62 @@
-# Prescription Dashboard — Spec-driven workshop
+# Prescription Dashboard — spec-driven workshop
 
-A hands-on Spec Kit workshop using an existing prescription dashboard
-(Express API + React frontend).
+This unfinished **browser-only** starter uses synthetic data. Add claims status
+filtering and pagination to the existing Claims view: one requirement, one
+feature, one human acceptance decision. The starter deliberately has no filter,
+pagination metadata, or completed feature artifacts.
 
-**One requirement, one implementation, one review.** Add claims status filtering
-and pagination to the existing app, not a replacement dashboard.
-
-This repository
-([`perinbaraj/spec-workshop`](https://github.com/perinbaraj/spec-workshop)) is an
-**unfinished learner starter**: it has neither generated Spec Kit scaffolding
-nor the claims-filter implementation.
+There is **no real server, authentication, authorization, privacy or security
+boundary, or HIPAA guarantee**. Everything shipped to the browser is readable
+and changeable by its user. Use synthetic data only; never use real health
+information or credentials.
 
 ## Start here
 
-Begin with [Exercise 0: set up your workshop environment](workshops/steps/exercise-0-setup.md)
-before the event. It covers cloning, starter readiness, and reviewer verification.
-Then follow Exercises 1-6 in order using your own clone. No checkpoint commits
-or pushes are required.
+Begin with [Exercise 0](workshops/steps/exercise-0-setup.md), including the
+branch-specific clone. Open `index.html` directly in a browser to use the app
+and `tests\index.html` directly to run its automated assertions. No app server,
+CLI, package installation, browser storage, or build step is needed. A browser,
+VS Code, Git for the clone, and a working Copilot account/access with network
+connectivity are needed for the workshop; Copilot is not an offline tool.
 
-## Workshop roadmap
+| Exercise | Handoff |
+| --- | --- |
+| [0: Setup](workshops/steps/exercise-0-setup.md) | Correct branch, app, baseline assertions, skills and reviewer checked |
+| [1: Explore](workshops/steps/exercise-1-explore-the-app.md) | Explain the starter and bounded change |
+| [2: Bundled Spec Kit and constitution](workshops/steps/exercise-2-install-and-initialize-spec-kit.md) | Inspect the seven adaptations and approve the constitution |
+| [3: Specification](workshops/steps/exercise-3-create-the-specification.md) | Review one specification and checklist |
+| [4: Plan and tasks](workshops/steps/exercise-4-create-the-plan-and-tasks.md) | Approve the plan, then test-first tasks |
+| [5: Implement and test](workshops/steps/exercise-5-implement-and-test.md) | Record observed failing assertions before implementation and actual reruns |
+| [6: Review and accept](workshops/steps/exercise-6-review-and-accept.md) | Read-only review, browser checks, human decision |
 
-| Exercise | What you do | Check before moving on |
-| --- | --- | --- |
-| [0: Set up your environment](workshops/steps/exercise-0-setup.md) | Clone and verify the starter and reviewer | Baseline checks pass; reviewer available; app stopped |
-| [1: Explore the app](workshops/steps/exercise-1-explore-the-app.md) | Run the starter and trace the claims flow | Explain the current behavior and change boundary; app stopped |
-| [2: Install and initialize Spec Kit](workshops/steps/exercise-2-install-and-initialize-spec-kit.md) | Install Spec Kit, initialize this project, and create project rules | Generated tooling and a reviewed constitution; app unchanged |
-| [3: Create the specification](workshops/steps/exercise-3-create-the-specification.md) | Generate and review the required behavior | One feature folder, reviewed `spec.md`, and complete requirements checklist |
-| [4: Create the plan and tasks](workshops/steps/exercise-4-create-the-plan-and-tasks.md) | Approve the technical plan, then generate tasks | Consistent planning artifacts and executable, test-first tasks; app unchanged |
-| [5: Implement and test](workshops/steps/exercise-5-implement-and-test.md) | Implement tasks, inspect changes, run checks, and review convergence | Actual check results; app running at `?pageSize=1` |
-| [6: Review and accept](workshops/steps/exercise-6-review-and-accept.md) | Customize a reviewer, evaluate findings, and check the browser | Browser evidence and an explicit human acceptance record |
+Use the [binding acceptance contract](workshops/acceptance.md), and follow
+[recovery](workshops/steps/exercise-0-setup.md#recovery-during-the-workshop)
+without discarding work. The seven checked-in skills are a CLI-free workshop
+adaptation, not the full upstream Spec Kit or its CLI; see
+[attribution and workflow](.specify/README.md). Never infer a human approval or
+test result from generated text. Keep normal Copilot tool approvals.
 
-## Working through the exercises
+The core has a tentative three-hour delivery target plus a one-hour buffer, not
+a measured completion guarantee. The buffer is for finishing this feature, not
+additional required work.
 
-Each guide has an objective, prerequisites, numbered actions, expected outputs,
-and exit criteria. Actions identify whether to use the terminal, Copilot Chat,
-editor, or browser. Review changes in VS Code Source Control and open new files
-in Explorer; routine Git terminal commands are not needed.
+## Starter map
 
-The [acceptance contract](workshops/acceptance.md) defines what to build.
-Use `/speckit-specify` to generate one feature specification and checklist from
-the backlog and contract. Use `/speckit-plan` to plan the reviewed specification
-against the existing code, then `/speckit-tasks` to generate executable work from
-the approved plan. Review each handoff; there are no prewritten spec, plan, or
-task files to copy.
+- `index.html`, `src\App.js`, `src\App.css`: direct-file app, navigation, styles.
+- `src\data.js`: synthetic fixtures; `src\services\memberService.js`: local
+  asynchronous service. `getClaims()` currently resolves to `{ claims }`.
+- `src\components\`: Profile, Claims and Prescriptions views.
+- `tests\index.html`, `tests\testHarness.js`, `tests\browser.test.js`: browser
+  test page and baseline assertions. Reload to rerun and copy visible results.
+- `.github\skills\`, `.specify\templates\`: bundled workflow; `.github\agents\`
+  contains the read/search-only workshop reviewer.
 
-Keep normal tool approvals. Use the implementation agent to run commands and
-change code; the custom reviewer stays read/search only. Browser checks,
-reviewer-finding decisions, and final acceptance remain human work.
-A generated success message is not test evidence.
+`setMemberId` and `getMemberId` use memory; switching members rerenders the
+active view, and refreshing resets to `M-10001` and Profile. Refill is not
+implemented. No real network request is involved in service reads.
 
-If blocked, preserve your work and follow
-[recovery in Exercise 0](workshops/steps/exercise-0-setup.md#recovery-during-the-workshop)
-with the facilitator. Do not skip tests, member isolation, pagination, review,
-or human acceptance to catch up.
+## Optional follow-ons
 
-## Workshop scope and event format
-
-Use the existing packages and synthetic in-memory fixtures. No new application
-dependencies, Redis server, database, Docker, GitHub Actions, paid cloud resources,
-external healthcare APIs, deployment, or broad refactoring are required.
-Spec Kit is a local development tool, not an application service. Copilot needs
-account access and network connectivity. Never use real member information,
-health data, tokens, or credentials in prompts or workshop artifacts.
-
-Exercise 0 is setup before the event. Exercises 1-6 have a **tentative three-hour
-core plus a one-hour buffer**, including welcome, discussion, a break, and wrap-up.
-Use the buffer for recovery and finishing the same feature, not extra required
-exercises. This is a delivery target, not a measured participant-completion claim;
-the live VS Code/Copilot journey still needs a participant rehearsal.
-
-## Optional follow-on workshops
-
-- [Build multiple role-specific custom agents](workshops/optional/custom-agents.md):
-  start with the reviewed core specification and plan.
-- [Appeal eligibility and an in-memory draft](workshops/optional/claim-appeals.md):
-  start after accepting the core feature.
-
-Neither is required for core completion or part of the completion buffer.
-
-## Quick Start
-
-For workshop readiness, follow [Exercise 0](workshops/steps/exercise-0-setup.md).
-To run an already cloned and prepared checkout:
-
-```bash
-npm ci
-npm run dev
-```
-
-This starts:
-- **API** on http://localhost:3000 (Express)
-- **UI** on http://localhost:5173 (Vite + React, proxies `/api` to the backend)
-
-## Test Members
-
-| Member ID | Name            | Plan              |
-|-----------|-----------------|-------------------|
-| M-10001   | Sarah Johnson   | Gold PPO          |
-| M-10002   | James Williams  | Silver HMO        |
-| M-10003   | Maria Garcia    | Gold PPO          |
-
-## API Endpoints
-
-All `/api/*` routes require the `x-member-id` header.
-
-```bash
-curl -H "x-member-id: M-10001" http://localhost:3000/api/members/me
-curl -H "x-member-id: M-10001" http://localhost:3000/api/claims
-curl -H "x-member-id: M-10001" http://localhost:3000/api/prescriptions
-```
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start API + UI concurrently |
-| `npm run dev:api` | Backend only |
-| `npm run dev:ui` | Frontend only |
-| `npm run build` | Compile backend + build frontend |
-| `npm test` | Run API tests |
-| `npm run typecheck` | Check backend TypeScript (not frontend TSX) |
-
-## Project Structure
-
-```
-spec-workshop/
-+-- server/          # Express backend
-|   +-- server.ts    # Routes + middleware (single file)
-|   +-- data.ts      # In-memory mock data
-|   +-- types.ts     # TypeScript interfaces
-+-- src/             # React frontend
-|   +-- main.tsx     # Entry point
-|   +-- App.tsx      # Main app component
-|   +-- App.css      # Styles
-|   +-- types.ts     # Frontend type definitions
-|   +-- components/  # UI components
-|   +-- services/    # API client
-+-- tests/           # API tests (Vitest + Supertest)
-+-- index.html       # Vite HTML entry
-+-- package.json     # Single unified package
-+-- tsconfig.json    # Backend TypeScript config
-+-- vite.config.ts   # Frontend build config
-```
+After the reviewed core plan, try [role-specific agents](workshops/optional/custom-agents.md).
+After accepting the core, try [appeal eligibility and an in-memory draft](workshops/optional/claim-appeals.md).
+Neither is required for core acceptance.

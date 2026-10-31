@@ -1,12 +1,10 @@
 # Workshop exercises
 
-## Start here
+The [main README](../README.md#start-here) contains the Exercise 0–6 roadmap.
+Start with [setup](steps/exercise-0-setup.md), then follow the Next links.
+Keep the [binding acceptance contract](acceptance.md) open and use
+[recovery](steps/exercise-0-setup.md#recovery-during-the-workshop) if blocked.
 
-The [main README](../README.md#start-here) contains the workshop overview and
-complete Exercise 0-6 roadmap.
-
-Begin with [Exercise 0: set up your workshop environment](steps/exercise-0-setup.md),
-then follow each exercise's Next link.
-
-Keep the [acceptance contract](acceptance.md) available. If blocked, use
-[recovery in Exercise 0](steps/exercise-0-setup.md#recovery-during-the-workshop).
+This is a synthetic browser-only simulation, not real authentication,
+authorization, privacy, security or HIPAA compliance. Open the app and browser
+test page directly; Copilot still needs its usual account and connectivity.

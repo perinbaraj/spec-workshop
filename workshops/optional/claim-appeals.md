@@ -1,119 +1,71 @@
 # Optional workshop: appeal eligibility and an in-memory draft
 
-**Follow-on work, outside the core and its buffer.** Start from your
-[accepted claims-filter feature](../steps/exercise-6-review-and-accept.md).
-This optional work is not needed for the six-exercise core.
+**Optional follow-on, outside the core and its buffer.** Start after the human
+has [accepted the core feature](../steps/exercise-6-review-and-accept.md).
+This is a local educational exercise using synthetic data only. There is no
+real server, authentication, authorization, privacy, security or HIPAA
+guarantee; anyone can inspect or change shipped fixtures and state. No owner
+check here can provide real security or establish actual appeal eligibility.
 
-This is a complete, bounded read-only-and-UI exercise, not an appeal-submission
-system. No Redis, database, GitHub Actions, external service, or new package is
-required. Use the existing app, Zod, React, and API test runner.
+## Requirement and boundary
 
-## Requirement
+As a simulated member viewing a denied claim, I want to see simulated appeal
+eligibility and compose a temporary draft without submitting it. Keep the
+accepted core behavior intact; no real appeal submission, persistence, network,
+server, storage, external infrastructure, dependency, legal advice or
+healthcare workflow is included. Refills remain unimplemented.
 
-As a member viewing my own denied claim, I want to understand appeal eligibility
-and compose a draft so I can prepare an appeal without submitting it.
+- Design a local asynchronous `memberService.getAppealEligibility(claimId)`.
+  Validate the synthetic identifier format `CLM-` followed by five digits
+  without coercing other input types. Reject malformed input with a generic
+  simulated `INVALID_INPUT` error. Require current simulated member context;
+  preserve generic `MISSING_MEMBER` behavior.
+- Reuse the member-scoped `getClaim(claimId)` lookup. For a known claim in the
+  current simulated context return `{ claimId, eligible, reasonCode }`:
+  denied gives `true`/`DENIED_CLAIM`, all other statuses give
+  `false`/`STATUS_NOT_ELIGIBLE`. Unknown and other-member claims both reject
+  with the existing generic simulated `NOT_FOUND` category. Never expose a
+  distinct foreign-member result, raw exception, or pretend these categories
+  are HTTP status codes. This is a behavior invariant, not owner security.
+- Offer an Appeal draft action for eligible claims. A labeled reason field
+  requires trimmed nonempty text of at most 1,000 characters; announce errors.
+  Label the action **Save draft in this view** and state prominently that the
+  draft is temporary and **does not submit an appeal**.
+- Keep draft content only in in-memory view state, not URLs, logs, network or
+  storage. Clear it on opening another claim, leaving the view, switching
+  simulated members, or reloading. Guard delayed eligibility callbacks across
+  those transitions; never restore a previous claim's draft.
 
-## Behavior contract
+## Design and test-first activity
 
-- Add `GET /api/claims/:claimId/appeal-eligibility`.
-- Validate the identifier with a route-level Zod schema matching the repository's
-  synthetic claim-ID format; inspect existing fixtures instead of inventing it.
-- Return `{ claimId, eligible, reasonCode }` for the member's claim.
-- For this exercise only, a denied claim is eligible:
-  `eligible: true, reasonCode: "DENIED_CLAIM"`.
-- Other own-claim statuses return
-  `eligible: false, reasonCode: "STATUS_NOT_ELIGIBLE"`.
-- Missing authentication is 401, malformed identifiers are 400, unknown claims are
-  404, and known foreign-member claims are 403. Use generic error messages.
-- For cross-member attempts, log a generic security-event code without the claim
-  ID, member ID, payload, or other sensitive details.
-- Keep ownership enforcement in the backend. Do not rely on hiding a button.
-- Do not weaken the existing member-scoped data helper. If ownership lookup needs
-  a separate internal helper, make the route check ownership before returning data.
-- Add an Appeal draft action for eligible claims. Use a labeled reason field,
-  required trimmed content, and a maximum of 1,000 characters.
-- Keep the draft only in React state. Do not send its contents over the network,
-  put them in a URL, persist to storage, or log them.
-- Opening a different claim, leaving the draft view, changing member context, or
-  reloading discards the draft. Do not reuse another claim's draft.
-- Label the action **Save draft in this view**, with an explicit notice that it
-  is temporary and **does not submit an appeal**. Announce validation feedback.
-- Do not implement POST/PUT/DELETE, actual submission, delivery, durable storage,
-  business deadlines, legal eligibility, or a production medical-care workflow.
+1. Review the requirement, inspect the existing service and view lifecycle,
+   and write a small design and acceptance checklist for this optional work
+   separately from the accepted core artifacts. The bundled skills permit only
+   one active feature; do **not** invoke `/speckit-specify` to create a second
+   feature or silently replace `.specify\feature.json`. If a fresh workflow is
+   desired, preserve the entire core checkout and ask the facilitator how to
+   proceed in a separate workspace.
+2. Before implementation, add focused assertions to the existing browser
+   harness and open `tests\index.html` directly. Capture actual expected
+   feature-related failures. If the agent cannot observe the browser, supply
+   the real output; setup or syntax errors are blockers, not proof.
+3. Implement the smallest approved local changes, then rerun the browser
+   assertions. Cover own denied and other statuses, malformed types/IDs,
+   missing context, unknown and foreign claims with identical generic
+   `NOT_FOUND`, draft validation and lifecycle, stale callbacks, and existing
+   claims/pagination regressions. Use no new fixtures, packages or storage.
+4. Manually check the draft's labels, keyboard use, announced validation,
+   temporary notice and clearing on claim/view/member/refresh transitions.
+   For delayed/failing service reads use a clearly marked temporary local stub,
+   restore it after the check and rerun final tests; Network Offline does not
+   fail an in-memory promise.
+5. In `.github\agents\workshop-reviewer.agent.md`, adapt the review scope to
+   this optional contract and its separate design and checklist. Keep
+   `tools: ['read', 'search']` unchanged. Ask the reviewer to check the
+   optional behavior against those artifacts and the accepted core contract
+   for regressions; provide the current diff and actual test evidence. Decide
+   each finding yourself and record the real test and browser results,
+   limitations, and human acceptance decision separately. No passing check
+   proves real owner security or HIPAA compliance.
 
-## Activity 1: specify and challenge assumptions
-
-Use Spec Kit's `/speckit-specify` skill with the requirement and contract above.
-
-```text
-/speckit-specify
-Specify appeal eligibility and an ephemeral UI draft for the existing Member
-Portal. Treat workshops/optional/claim-appeals.md as the scope contract. No appeal
-submission, mutation endpoint, persistence, external infrastructure, or new packages.
-Identify ownership and draft-lifetime acceptance criteria.
-Generate the specification only.
-```
-
-Review the specification yourself. Clarify the difference between an actual
-appeal and a temporary draft; do not allow the agent to silently add submission.
-
-**Checkpoint:** the spec contains denied/non-denied, foreign/unknown claim,
-validation, and draft-clearing cases.
-
-## Activity 2: plan and decompose
-
-Use `/speckit-plan`, then `/speckit-tasks`:
-
-```text
-/speckit-plan
-Plan the approved optional appeals exercise using the existing Express/Zod
-backend, typed HTTP client, React components, and Vitest/Supertest. Add only the
-read-only eligibility route and temporary UI draft. Keep the completed core
-feature working. Include backend ownership checks, draft isolation, accessibility,
-focused tests, and manual acceptance. Do not add dependencies or implement yet.
-```
-
-Your task list should separately cover the route/schema, ownership lookup,
-typed API method, draft component/state lifecycle, API tests, and browser checks.
-
-**Checkpoint:** no task provisions infrastructure or introduces a mutation route.
-
-## Activity 3: implement and test
-
-Run `/speckit-implement` on the approved tasks. Inspect the diff and run existing
-test/build/typecheck commands.
-
-Add focused API cases for:
-
-- Own denied claim: eligible.
-- Own non-denied claim: ineligible.
-- Missing auth, malformed identifier, and nonexistent claim.
-- Another member's claim: 403, generic error, and a PHI-free security event.
-- Regression: existing claims filtering and pagination still work.
-
-Do not assert exact production log prose or expose identifiers in test logs.
-Use synthetic fixtures and restore all mocks.
-
-Run `/speckit-converge`, review remaining in-scope tasks, and repeat implementation
-and convergence until the approved feature converges with evidence.
-
-## Activity 4: customize the reviewer and validate
-
-Add a draft-isolation criterion to your reviewer, then request read-only review
-against this optional spec and actual test evidence. Human judgment decides
-which findings to fix.
-
-Manually verify:
-
-1. An eligible own claim opens a clearly labeled temporary draft.
-2. Blank/whitespace and overlong reasons produce announced validation feedback.
-3. A valid draft remains in the current view without making a submission request.
-4. Switching claims/member, leaving the view, and reloading do not resurrect drafts.
-5. Ineligible claims do not offer drafting, and direct foreign-claim requests fail.
-6. Keyboard operation works and the core filter/page controls remain usable.
-
-**Done:** the read-only eligibility contract, focused tests, temporary draft,
-review, and human acceptance all pass. Actual appeal submission remains absent.
-
-[Workshop home](../../README.md#start-here) |
-[Core acceptance contract](../acceptance.md)
+[Workshop home](../../README.md#start-here)
