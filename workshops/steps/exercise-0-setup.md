@@ -21,11 +21,11 @@ server, authentication, authorization, privacy, security or HIPAA guarantee.
    from the desired parent directory in a Git-capable terminal:
 
    ```text
-   git clone --branch pthangavel-microsoft-zero-install-workshop https://github.com/perinbaraj/spec-workshop.git spec-workshop-zero-install
+   git clone --branch zero-install https://github.com/perinbaraj/spec-workshop.git spec-workshop-zero-install
    ```
 
    Open `spec-workshop-zero-install` as the VS Code workspace root and verify
-   the status bar shows `pthangavel-microsoft-zero-install-workshop`. Do not
+   the status bar shows `zero-install`. Do not
    change or reset an existing checkout, and leave the full-stack main branch
    untouched. The terminal and Git are for the clone, not running the app.
 2. **Browser:** open the clone's `index.html` directly from the file manager.
@@ -66,7 +66,7 @@ experimenting; do not reset, overwrite, clean or switch its branch. For a fresh
 comparison, clone **the same branch** into a different directory:
 
 ```text
-git clone --branch pthangavel-microsoft-zero-install-workshop https://github.com/perinbaraj/spec-workshop.git spec-workshop-recovery
+git clone --branch zero-install https://github.com/perinbaraj/spec-workshop.git spec-workshop-recovery
 ```
 
 Keep both copies and ask the facilitator to reconcile any partial
